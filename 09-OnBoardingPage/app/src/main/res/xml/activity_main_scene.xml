@@ -7,9 +7,15 @@
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="1000"
-        motion:motionInterpolator="linear"
+        motion:motionInterpolator="cubic(0.7,0,0.8,1)"
         motion:autoTransition="animateToEnd">
        <KeyFrameSet>
+           <KeyPosition
+               motion:motionTarget="@+id/imageView"
+               motion:framePosition="50"
+               motion:keyPositionType="pathRelative"
+               motion:percentX="0.502"
+               motion:percentY="-0.252" />
        </KeyFrameSet>
     </Transition>
 
@@ -260,7 +266,7 @@
             android:layout_width="0dp"
             android:layout_height="300dp"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintVertical_bias="0.25"
+            motion:layout_constraintVertical_bias="0.2"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toEndOf="@+id/logoMenu1"
             motion:layout_constraintEnd_toEndOf="parent"
