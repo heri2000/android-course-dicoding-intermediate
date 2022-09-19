@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Product Detail</string>
+    <string name="description">Limited edition cool running shoes. Wearing these shoes will enhance your understanding when learning coding.\n\nAlways ready in stock. Available in various sizes and colors. Feel free to order right away!</string>
+    <string name="price">$ 13.95</string>
+    <string name="name">Running Shoes</string>
+    <string name="store">Dicoding Store</string>
+    <string name="date">Uploaded Aug 5, 2021</string>
+    <string name="color">Brown</string>
+    <string name="rating">4.5 (1,249)</string>
+    <string name="size">42</string>
+    <string name="buy">Buy Now!</string>
+</resources>
