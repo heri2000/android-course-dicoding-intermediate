@@ -16,7 +16,7 @@ val timeStamp: String = SimpleDateFormat(
     Locale.US
 ).format(System.currentTimeMillis())
 
-fun createTempFile(context: Context): File {
+fun createCustomTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
 }
@@ -47,7 +47,7 @@ fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
             true
         )
     } else {
-        matrix.postRotate(-90f)
+        // matrix.postRotate(-90f)
         matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
         Bitmap.createBitmap(
             bitmap,
