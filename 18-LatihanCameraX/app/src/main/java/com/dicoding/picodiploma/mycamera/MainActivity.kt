@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.mycamera
 
 import android.Manifest
 import android.content.Intent
+import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,6 +10,7 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -45,7 +47,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startGallery() {
-        Toast.makeText(this, "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
+        val intent = Intent()
+        intent.action = ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg: Uri = result.data?.data as Uri
+            val myFile = uriToFile(selectedImg, this@MainActivity)
+            binding.previewImageView.setImageURI(selectedImg)
+        }
     }
 
     private fun startTakePhoto() {
@@ -61,6 +77,20 @@ class MainActivity : AppCompatActivity() {
             currentPhotoPath = it.absolutePath
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             launcherIntentCamera.launch(intent)
+        }
+    }
+
+    private lateinit var currentPhotoPath: String
+
+    private val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            val myFile = File(currentPhotoPath)
+            val result = BitmapFactory.decodeFile(myFile.path)
+            binding.previewImageView.setImageBitmap(result)
+            // val imageBitmap = it.data?.extras?.get("data") as Bitmap
+            // binding.previewImageView.setImageBitmap(imageBitmap)
         }
     }
 
@@ -86,23 +116,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var currentPhotoPath: String
-
-    private val launcherIntentCamera = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == RESULT_OK) {
-            val myFile = File(currentPhotoPath)
-            val result = BitmapFactory.decodeFile(myFile.path)
-            binding.previewImageView.setImageBitmap(result)
-            // val imageBitmap = it.data?.extras?.get("data") as Bitmap
-            // binding.previewImageView.setImageBitmap(imageBitmap)
-        }
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>,
+        permissions: Array<String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
