@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Story App</string>
+
+    <string name="register">Register</string>
+    <string name="name">Nama</string>
+    <string name="input_name">Masukkan nama Anda</string>
+    <string name="email">Email</string>
+    <string name="input_email">Masukkan alamat email Anda</string>
+    <string name="invalid_email_address">Alamat email tidak valid</string>
+    <string name="password">Password</string>
+    <string name="input_password">Masukkan password</string>
+    <string name="password_confirmation">Konfirmasi Password</string>
+    <string name="input_password_confirmation">Ketik ulang password</string>
+    <string name="password_6_characters_or_more">Password harus 6 karakter atau lebih</string>
+    <string name="login">Login</string>
+    <string name="new_user">Pengguna baru?</string>
+    <string name="register_here">Register di sini</string>
+</resources>

@@ -18,10 +18,23 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.dicoding.picodiploma.mycamera.databinding.ActivityMainBinding
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+    private var getFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +56,55 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        Toast.makeText(this, "Fitur ini belum tersedia", Toast.LENGTH_SHORT).show()
+        if (getFile != null) {
+            val file = reduceFileImage(getFile as File)
+
+            val description = "Ini adalah deskripsi gambar".toRequestBody("text/plain".toMediaType())
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "photo",
+                file.name,
+                requestImageFile
+            )
+
+            val service = ApiConfig().getApiService().uploadImage(imageMultipart, description)
+            service.enqueue(object : Callback<FileUploadResponse> {
+                override fun onResponse(
+                    call: Call<FileUploadResponse>,
+                    response: Response<FileUploadResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null && !responseBody.error) {
+                            Toast.makeText(this@MainActivity, responseBody.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(this@MainActivity, response.message(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<FileUploadResponse>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, "Gagal instance Retrofit", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun reduceFileImage(file: File): File {
+        val bitmap = BitmapFactory.decodeFile(file.path)
+        var compressQuality = 100
+        var streamLength: Int
+        do {
+            val bmpStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+            val bmpPicByteArray = bmpStream.toByteArray()
+            streamLength = bmpPicByteArray.size
+            compressQuality -= 5
+        } while (streamLength > 1000000)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+        return file
     }
 
     private fun startGallery() {
@@ -60,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
             val myFile = uriToFile(selectedImg, this@MainActivity)
+            getFile = myFile
             binding.previewImageView.setImageURI(selectedImg)
         }
     }
@@ -87,6 +149,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (it.resultCode == RESULT_OK) {
             val myFile = File(currentPhotoPath)
+            getFile = myFile
             val result = BitmapFactory.decodeFile(myFile.path)
             binding.previewImageView.setImageBitmap(result)
             // val imageBitmap = it.data?.extras?.get("data") as Bitmap
@@ -103,10 +166,11 @@ class MainActivity : AppCompatActivity() {
     private val launcherIntentCameraX = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
-        if (it.resultCode == CAMERA_X_RESULT) {
+        if (it.resultCode == MainActivity.CAMERA_X_RESULT) {
             val myFile = it.data?.getSerializableExtra("picture") as File
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
 
+            getFile = myFile
             val result = rotateBitmap(
                 BitmapFactory.decodeFile(myFile.path),
                 isBackCamera
