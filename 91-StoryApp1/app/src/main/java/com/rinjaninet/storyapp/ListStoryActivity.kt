@@ -3,25 +3,20 @@ package com.rinjaninet.storyapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.rinjaninet.storyapp.databinding.ActivityLoginBinding
+import com.rinjaninet.storyapp.databinding.ActivityListStoryBinding
 
-class LoginActivity : AppCompatActivity() {
+class ListStoryActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityListStoryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityListStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvRegisterHere.setOnClickListener {
-            val registerIntent = Intent(this, RegisterActivity::class.java)
-            startActivity(registerIntent)
-        }
-
-        binding.btnLogin.setOnClickListener {
-            val loginIntent = Intent(this, ListStoryActivity::class.java)
-            startActivity(loginIntent)
+        binding.btnAddNewStory.setOnClickListener {
+            val addStoryIntent = Intent(this, AddStoryActivity::class.java)
+            startActivity(addStoryIntent)
         }
     }
 
