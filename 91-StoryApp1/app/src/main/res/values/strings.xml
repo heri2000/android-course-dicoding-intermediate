@@ -17,4 +17,6 @@
     <string name="register_here">Register di sini</string>
     <string name="add_new_story">Tambah Story Baru</string>
     <string name="upload">Upload</string>
+    <string name="logout">Logout</string>
+    <string name="story_photo">Foto story</string>
 </resources>
