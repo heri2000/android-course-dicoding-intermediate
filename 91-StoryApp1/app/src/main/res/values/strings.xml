@@ -16,4 +16,5 @@
     <string name="new_user">Pengguna baru?</string>
     <string name="register_here">Register di sini</string>
     <string name="add_new_story">Tambah Story Baru</string>
+    <string name="upload">Upload</string>
 </resources>
