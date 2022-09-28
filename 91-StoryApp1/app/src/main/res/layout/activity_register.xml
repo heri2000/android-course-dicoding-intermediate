@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvRegister"
+            android:id="@+id/tv_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/register"
@@ -25,83 +25,83 @@
             android:layout_marginTop="32dp" />
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/tv_register_name"
             style="@style/RegisterAndLogin.Text"
             android:text="@string/name"
-            android:labelFor="@id/edtName"
-            app:layout_constraintTop_toBottomOf="@+id/tvRegister"
+            android:labelFor="@id/ed_register_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.rinjaninet.storyapp.CustomEditText
-            android:id="@+id/edtName"
+            android:id="@+id/ed_register_name"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tv_register_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tv_register_email"
             style="@style/RegisterAndLogin.Text"
             android:text="@string/email"
-            android:labelFor="@id/edtEmail"
-            app:layout_constraintTop_toBottomOf="@+id/edtName"
+            android:labelFor="@id/ed_login_email"
+            app:layout_constraintTop_toBottomOf="@+id/ed_register_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.rinjaninet.storyapp.CustomEditText
-            android:id="@+id/edtEmail"
+            android:id="@+id/ed_register_email"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textEmailAddress"
-            app:layout_constraintTop_toBottomOf="@+id/tvEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_register_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/tvPassword"
+            android:id="@+id/tv_register_password"
             style="@style/RegisterAndLogin.Text"
             android:text="@string/password"
-            android:labelFor="@id/edtPassword"
-            app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+            android:labelFor="@id/ed_register_password"
+            app:layout_constraintTop_toBottomOf="@+id/ed_register_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.rinjaninet.storyapp.CustomEditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/ed_register_password"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+            app:layout_constraintTop_toBottomOf="@+id/tv_register_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/tvPasswordConfirmation"
+            android:id="@+id/tv_register_password_confirmation"
             style="@style/RegisterAndLogin.Text"
             android:text="@string/password_confirmation"
-            android:labelFor="@id/edtPasswordConfirmation"
-            app:layout_constraintTop_toBottomOf="@+id/edtPassword"
+            android:labelFor="@id/ed_register_password_confirmation"
+            app:layout_constraintTop_toBottomOf="@+id/ed_register_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.rinjaninet.storyapp.CustomEditText
-            android:id="@+id/edtPasswordConfirmation"
+            android:id="@+id/ed_register_password_confirmation"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordConfirmation"
+            app:layout_constraintTop_toBottomOf="@+id/tv_register_password_confirmation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:isPasswordConfirmation="true" />
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtPasswordConfirmation" />
+            app:layout_constraintTop_toBottomOf="@+id/ed_register_password_confirmation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

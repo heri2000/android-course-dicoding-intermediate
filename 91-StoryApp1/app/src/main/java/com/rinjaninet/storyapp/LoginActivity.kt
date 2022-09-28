@@ -14,22 +14,25 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvRegisterHere.setOnClickListener {
+        binding.tvLoginRegisterHere.setOnClickListener {
             val registerIntent = Intent(this, RegisterActivity::class.java)
             startActivity(registerIntent)
         }
 
         binding.btnLogin.setOnClickListener {
-            val loginIntent = Intent(this, ListStoryActivity::class.java)
-            startActivity(loginIntent)
+            val mainIntent = Intent(this, MainActivity::class.java)
+            mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            mainIntent.putExtra(MainActivity.EXTRA_TOKEN, "this is token")
+            startActivity(mainIntent)
+            finish()
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val exitIntent = Intent(this, MainActivity::class.java)
-        exitIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        exitIntent.putExtra(MainActivity.EXTRA_EXIT, true)
-        startActivity(exitIntent)
-    }
+    // override fun onBackPressed() {
+    //     super.onBackPressed()
+    //     val exitIntent = Intent(this, MainActivity::class.java)
+    //     exitIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    //     exitIntent.putExtra(MainActivity.EXTRA_EXIT, true)
+    //     startActivity(exitIntent)
+    // }
 }
