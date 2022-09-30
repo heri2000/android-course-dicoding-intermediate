@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".register.RegisterActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.rinjaninet.storyapp.CustomEditText
+        <com.rinjaninet.storyapp.components.CustomEditText
             android:id="@+id/ed_register_name"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPersonName"
@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.rinjaninet.storyapp.CustomEditText
+        <com.rinjaninet.storyapp.components.CustomEditText
             android:id="@+id/ed_register_email"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textEmailAddress"
@@ -67,7 +67,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.rinjaninet.storyapp.CustomEditText
+        <com.rinjaninet.storyapp.components.CustomEditText
             android:id="@+id/ed_register_password"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPassword"
@@ -84,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.rinjaninet.storyapp.CustomEditText
+        <com.rinjaninet.storyapp.components.CustomEditText
             android:id="@+id/ed_register_password_confirmation"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPassword"

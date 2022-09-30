@@ -1,7 +1,7 @@
-package com.rinjaninet.storyapp
+package com.rinjaninet.storyapp.addstory
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.rinjaninet.storyapp.databinding.ActivityAddStoryBinding
 
 class AddStoryActivity : AppCompatActivity() {
