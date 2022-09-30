@@ -20,4 +20,7 @@
     <string name="logout">Logout</string>
     <string name="story_photo">Foto story</string>
     <string name="add_story">Tambah Story</string>
+    <string name="register_success">Register berhasil</string>
+    <string name="congratulations_register_success">Selamat!\nProses registrasi berhasil.</string>
+    <string name="continue_1">Lanjutkan</string>
 </resources>
