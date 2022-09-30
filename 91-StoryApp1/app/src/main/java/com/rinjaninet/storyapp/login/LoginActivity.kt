@@ -1,8 +1,10 @@
-package com.rinjaninet.storyapp
+package com.rinjaninet.storyapp.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.rinjaninet.storyapp.MainActivity
+import com.rinjaninet.storyapp.register.RegisterActivity
 import com.rinjaninet.storyapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

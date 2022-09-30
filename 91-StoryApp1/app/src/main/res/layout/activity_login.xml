@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.rinjaninet.storyapp.CustomEditText
+        <com.rinjaninet.storyapp.components.CustomEditText
             android:id="@+id/ed_login_email"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textEmailAddress"
@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.rinjaninet.storyapp.CustomEditText
+        <com.rinjaninet.storyapp.components.CustomEditText
             android:id="@+id/ed_login_password"
             style="@style/RegisterAndLogin.EditText"
             android:inputType="textPassword"

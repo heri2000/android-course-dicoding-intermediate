@@ -1,12 +1,13 @@
-package com.rinjaninet.storyapp
+package com.rinjaninet.storyapp.components
 
 import android.content.Context
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.AttributeSet
 import android.util.Patterns
 import androidx.appcompat.widget.AppCompatEditText
-import android.util.AttributeSet as AttributeSet1
+import com.rinjaninet.storyapp.R
 
 class CustomEditText : AppCompatEditText {
 
@@ -17,7 +18,7 @@ class CustomEditText : AppCompatEditText {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet1) : super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         val styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText)
         this.isPasswordConfirmation = styledAttributes.getBoolean(
             R.styleable.CustomEditText_isPasswordConfirmation, false
@@ -26,7 +27,7 @@ class CustomEditText : AppCompatEditText {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet1, defStyleAttr: Int) :
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) :
             super(context, attrs, defStyleAttr) {
 
         val styledAttributes = context.obtainStyledAttributes(

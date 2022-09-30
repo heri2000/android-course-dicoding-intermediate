@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.rinjaninet.storyapp.addstory.AddStoryActivity
 import com.rinjaninet.storyapp.databinding.ActivityMainBinding
+import com.rinjaninet.storyapp.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +20,11 @@ class MainActivity : AppCompatActivity() {
 
         val token: String? = intent.getStringExtra(EXTRA_TOKEN)
         if (token == null) navigateToLogin()
+
+        binding.btnAddStory.setOnClickListener {
+            val addStoryIntent = Intent(this, AddStoryActivity::class.java)
+            startActivity(addStoryIntent)
+        }
     }
 
     private fun navigateToLogin() {
