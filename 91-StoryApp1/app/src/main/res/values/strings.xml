@@ -21,6 +21,8 @@
     <string name="story_photo">Foto story</string>
     <string name="add_story">Tambah Story</string>
     <string name="register_success">Register berhasil</string>
+    <string name="there_is_error">Masih terdapat kesalahan</string>
+    <string name="password_is_not_equal">Password tidak sama</string>
     <string name="congratulations_register_success">Selamat!\nProses registrasi berhasil.</string>
     <string name="continue_1">Lanjutkan</string>
 </resources>
