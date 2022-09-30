@@ -8,18 +8,24 @@ import android.view.MenuItem
 import com.rinjaninet.storyapp.addstory.AddStoryActivity
 import com.rinjaninet.storyapp.databinding.ActivityMainBinding
 import com.rinjaninet.storyapp.login.LoginActivity
+import com.rinjaninet.storyapp.login.LoginResult
+import com.rinjaninet.storyapp.preferences.LoginPreferences
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var loginInfo: LoginResult
+    private lateinit var mLoginPreferences: LoginPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val token: String? = intent.getStringExtra(EXTRA_TOKEN)
-        if (token == null) navigateToLogin()
+        mLoginPreferences = LoginPreferences(this)
+        loginInfo = mLoginPreferences.getLogin()
+
+        if (loginInfo.token.isEmpty()) navigateToLogin()
 
         binding.btnAddStory.setOnClickListener {
             val addStoryIntent = Intent(this, AddStoryActivity::class.java)
@@ -36,19 +42,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+        menu?.findItem(R.id.action_logout)?.title = resources.getString(
+            R.string.logout, loginInfo.name
+        )
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
+                mLoginPreferences.clearLogin()
                 navigateToLogin()
             }
         }
         return true
-    }
-
-    companion object {
-        const val EXTRA_TOKEN = "extra_token"
     }
 }

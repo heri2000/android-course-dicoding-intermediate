@@ -6,7 +6,12 @@ import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.rinjaninet.storyapp.R
+import com.rinjaninet.storyapp.api.ApiConfig
+import com.rinjaninet.storyapp.api.RegisterData
 import com.rinjaninet.storyapp.databinding.ActivityRegisterBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -49,11 +54,56 @@ class RegisterActivity : AppCompatActivity() {
                 return
             }
 
-            val registerSuccessIntent = Intent(this@RegisterActivity, RegisterSuccessActivity::class.java)
-            registerSuccessIntent.putExtra(RegisterSuccessActivity.EXTRA_EMAIL, email)
-            registerSuccessIntent.putExtra(RegisterSuccessActivity.EXTRA_PASSWORD, password)
-            startActivity(registerSuccessIntent)
-            finish()
+            val service = ApiConfig().getApiService().register(RegisterData(name, email, password))
+            service.enqueue(object : Callback<RegisterResponse> {
+                override fun onResponse(
+                    call: Call<RegisterResponse>,
+                    response: Response<RegisterResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null && !responseBody.error) {
+
+                            val registerSuccessIntent = Intent(
+                                this@RegisterActivity,
+                                RegisterSuccessActivity::class.java
+                            )
+                            registerSuccessIntent.putExtra(
+                                RegisterSuccessActivity.EXTRA_EMAIL, email
+                            )
+                            registerSuccessIntent.putExtra(
+                                RegisterSuccessActivity.EXTRA_PASSWORD, password
+                            )
+                            startActivity(registerSuccessIntent)
+                            finish()
+
+                        } else {
+
+                            tvRegisterError.text = responseBody?.message ?: resources.getString(
+                                R.string.error_register_0102
+                            )
+                            tvRegisterError.visibility = View.VISIBLE
+                            enableFormElements(true)
+                            return
+
+                        }
+                    } else {
+
+                        tvRegisterError.text = resources.getString(R.string.error_register_0101)
+                        tvRegisterError.visibility = View.VISIBLE
+                        enableFormElements(true)
+                        return
+
+                    }
+                }
+
+                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    tvRegisterError.text = t.message
+                    tvRegisterError.visibility = View.VISIBLE
+                    enableFormElements(true)
+                    return
+                }
+            })
         }
     }
 
