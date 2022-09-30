@@ -2,8 +2,11 @@ package com.rinjaninet.storyapp.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.rinjaninet.storyapp.MainActivity
+import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.register.RegisterActivity
 import com.rinjaninet.storyapp.databinding.ActivityLoginBinding
 
@@ -22,12 +25,51 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val mainIntent = Intent(this, MainActivity::class.java)
+            login()
+        }
+    }
+
+    private fun login() {
+        binding.apply {
+            enableFormElements(false)
+            tvLoginError.text = ""
+            tvLoginError.visibility = View.GONE
+
+            val email = edLoginEmail.text.toString().trim()
+            val password = edLoginPassword.text.toString()
+
+            var isError = false
+            if (!isValidEmailAddress(email)) isError = true
+            if (password.length < 6) isError = true
+
+            if (isError) {
+                tvLoginError.text = resources.getString(R.string.there_is_error)
+                tvLoginError.visibility = View.VISIBLE
+                enableFormElements(true)
+                return
+            }
+
+            val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
             mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             mainIntent.putExtra(MainActivity.EXTRA_TOKEN, "this is token")
             startActivity(mainIntent)
             finish()
         }
+    }
+
+    private fun enableFormElements(enable: Boolean) {
+        binding.apply {
+            edLoginEmail.isEnabled = enable
+            edLoginPassword.isEnabled = enable
+            btnLogin.isEnabled = enable
+            tvLoginRegisterHere.isEnabled = enable
+            pbLoginProgress.visibility = if (enable) View.GONE else View.VISIBLE
+        }
+    }
+
+    private fun isValidEmailAddress(emailAddress: String): Boolean {
+        val pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(emailAddress).matches()
     }
 
     // override fun onBackPressed() {

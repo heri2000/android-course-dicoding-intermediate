@@ -21,4 +21,9 @@ class RegisterSuccessActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    companion object {
+        const val EXTRA_EMAIL = "extra_email"
+        const val EXTRA_PASSWORD = "extra_password"
+    }
 }
