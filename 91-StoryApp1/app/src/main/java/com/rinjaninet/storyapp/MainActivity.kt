@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,8 +36,7 @@ class MainActivity : AppCompatActivity() {
         if (loginInfo.token == null || loginInfo.token!!.isEmpty()) navigateToLogin()
 
         binding.btnAddStory.setOnClickListener {
-            val addStoryIntent = Intent(this, AddStoryActivity::class.java)
-            startActivity(addStoryIntent)
+            addStory()
         }
 
         displayProgress()
@@ -113,6 +113,19 @@ class MainActivity : AppCompatActivity() {
 
         if (loginInfo.token != null)
             listStoryViewModel.getStories(loginInfo.token ?: "", resources)
+    }
+
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == AddStoryActivity.RESULT_CODE) {
+            listStoryViewModel.getStories(loginInfo.token ?: "", resources)
+        }
+    }
+
+    private fun addStory() {
+        val addStoryIntent = Intent(this, AddStoryActivity::class.java)
+        resultLauncher.launch(addStoryIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

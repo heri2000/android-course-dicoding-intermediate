@@ -33,4 +33,11 @@
     <string name="error_login_0203">Error #0203: Error yang tidak terdefinisi</string>
     <string name="error_list_story_0301">Belum ada story</string>
     <string name="error_list_story_0302">Error #0302: Tidak dapat terhubung dengan server</string>
+    <string name="error_add_story_0402">Error #0402: Tidak dapat terhubung dengan server</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description">Deskripsi:</string>
+    <string name="failed_to_take_picture">Gagal mengambil gambar.</string>
+    <string name="please_add_image">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="success_uploading_story">Sukses mengupload story.</string>
 </resources>

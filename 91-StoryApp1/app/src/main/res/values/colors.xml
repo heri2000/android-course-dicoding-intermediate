@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_red">#FFC0C0</color>
     <color name="dark_red">#880000</color>
+
+    <color name="text_input_layout_stroke_color">#808080</color>
+    <color name="gray_200">#A0A0A0</color>
+    <color name="gray_800">#404040</color>
 </resources>
