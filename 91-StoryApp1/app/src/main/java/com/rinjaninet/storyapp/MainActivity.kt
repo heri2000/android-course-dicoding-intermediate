@@ -3,7 +3,6 @@ package com.rinjaninet.storyapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -63,13 +62,10 @@ class MainActivity : AppCompatActivity() {
         listStoryViewModel.errorMessage.observe(this) { errorMessage ->
             binding.apply {
                 if (errorMessage == null) {
-                    rvListStory.visibility = View.VISIBLE
                     groupListStoryErrorMessage.visibility = View.GONE
-                    tvListStoryErrorMessage.text = ""
                 } else {
-                    rvListStory.visibility = View.GONE
-                    groupListStoryErrorMessage.visibility = View.VISIBLE
                     tvListStoryErrorMessage.text = errorMessage
+                    groupListStoryErrorMessage.visibility = View.VISIBLE
                 }
             }
         }
@@ -95,22 +91,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun displayListStory() {
-        listStoryViewModel.listStory.observe(this) { listStory ->
-            binding.apply {
-                rvListStory.setHasFixedSize(true)
-                val layoutManager = LinearLayoutManager(this@MainActivity)
-                rvListStory.layoutManager = layoutManager
+        binding.apply {
+            rvListStory.setHasFixedSize(true)
+            val layoutManager = LinearLayoutManager(this@MainActivity)
+            rvListStory.layoutManager = layoutManager
+
+            listStoryViewModel.listStory.observe(this@MainActivity) { listStory ->
                 if (listStory?.size == 0) {
                     rvListStory.visibility = View.INVISIBLE
-                    groupListStoryErrorMessage.visibility = View.VISIBLE
                 } else {
                     rvListStory.visibility = View.VISIBLE
-                    groupListStoryErrorMessage.visibility = View.GONE
                 }
-                Log.d("AAAAA", listStory.toString())
-                val listStoryAdapter = listStory?.let { ListStoryAdapter(it) }
-                rvListStory.adapter = listStoryAdapter
+                if (listStory != null) {
+                    val listStoryAdapter = ListStoryAdapter(listStory)
+                    rvListStory.adapter = listStoryAdapter
+                }
             }
         }
 
