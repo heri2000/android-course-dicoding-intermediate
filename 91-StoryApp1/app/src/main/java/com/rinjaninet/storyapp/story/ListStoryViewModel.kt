@@ -22,6 +22,9 @@ class ListStoryViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
+    private val _errorType = MutableLiveData<Int>()
+    val errorType: LiveData<Int> = _errorType
+
     init {
         _isLoading.value = false
         _errorMessage.value = null
@@ -39,24 +42,35 @@ class ListStoryViewModel : ViewModel() {
                     val responseBody = response.body()
                     if (responseBody?.error != null && !responseBody.error) {
                         _errorMessage.value = null
+                        _errorType.value = ERROR_TYPE_NONE
                         _isLoading.value = false
                         _listStory.value = responseBody.listStory
                     } else {
                         _errorMessage.value = responseBody?.message
+                        _errorType.value = ERROR_TYPE_UNKNOWN
                         _isLoading.value = false
                     }
                 } else {
                     _errorMessage.value = resources.getString(R.string.error_list_story_0301)
+                    _errorType.value = ERROR_TYPE_NO_DATA
                     _isLoading.value = false
                 }
             }
 
             override fun onFailure(call: Call<GetStoryResponse>, t: Throwable) {
                 _errorMessage.value = resources.getString(R.string.error_list_story_0302)
+                _errorType.value = ERROR_TYPE_CONNECTION
                 _isLoading.value = false
             }
 
         })
+    }
+
+    companion object {
+        const val ERROR_TYPE_NONE = 0
+        const val ERROR_TYPE_NO_DATA = 1
+        const val ERROR_TYPE_CONNECTION = 2
+        const val ERROR_TYPE_UNKNOWN = 3
     }
 
 }
