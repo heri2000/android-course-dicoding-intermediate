@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        if (responseBody != null && !responseBody.error) {
+                        if (responseBody?.error != null && !responseBody.error) {
 
                             val registerSuccessIntent = Intent(
                                 this@RegisterActivity,
@@ -80,7 +80,7 @@ class RegisterActivity : AppCompatActivity() {
                         } else {
 
                             tvRegisterError.text = responseBody?.message ?: resources.getString(
-                                R.string.error_register_0102
+                                R.string.error_register_0103
                             )
                             tvRegisterError.visibility = View.VISIBLE
                             enableFormElements(true)
@@ -98,7 +98,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                    tvRegisterError.text = t.message
+                    tvRegisterError.text = resources.getString(R.string.error_register_0102)
                     tvRegisterError.visibility = View.VISIBLE
                     enableFormElements(true)
                     return

@@ -3,6 +3,7 @@ package com.rinjaninet.storyapp.api
 import com.rinjaninet.storyapp.addstory.PostStoryResponse
 import com.rinjaninet.storyapp.login.LoginResponse
 import com.rinjaninet.storyapp.register.RegisterResponse
+import com.rinjaninet.storyapp.story.GetStoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -32,6 +33,11 @@ interface ApiService {
     fun login(
         @Body loginData: LoginData
     ): Call<LoginResponse>
+
+    @GET("v1/stories")
+    fun getStories(
+        @Header("Authorization") token: String
+    ): Call<GetStoryResponse>
 
     @Multipart
     @POST("v1/stories/guest")
