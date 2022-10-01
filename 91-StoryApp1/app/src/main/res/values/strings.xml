@@ -25,8 +25,12 @@
     <string name="password_is_not_equal">Password tidak sama</string>
     <string name="congratulations_register_success">Selamat!\nProses registrasi berhasil.</string>
     <string name="continue_1">Lanjutkan</string>
-    <string name="error_register_0101">Error #0101: Error saat registrasi</string>
-    <string name="error_register_0102">Error #0102: Error saat registrasi</string>
-    <string name="error_login_0201">Error #0201: Error saat login</string>
-    <string name="error_login_0202">Error #0202: Error saat login</string>
+    <string name="error_register_0101">Email sudah pernah didaftarkan</string>
+    <string name="error_register_0102">Error #0102: Tidak dapat terhubung dengan server</string>
+    <string name="error_register_0103">Error #0103: Error yang tidak terdefinisi</string>
+    <string name="error_login_0201">Email atau password salah</string>
+    <string name="error_login_0202">Error #0202: Tidak dapat terhubung dengan server</string>
+    <string name="error_login_0203">Error #0203: Error yang tidak terdefinisi</string>
+    <string name="error_list_story_0301">Belum ada story</string>
+    <string name="error_list_story_0302">Error #0302: Tidak dapat terhubung dengan server</string>
 </resources>

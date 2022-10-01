@@ -176,7 +176,6 @@ class CustomEditText : AppCompatEditText {
     //                 event.x > errorIconStart -> isErrorIconClicked = true
     //             }
     //         }
-    //         Log.i("AAAAA", isErrorIconClicked.toString())
     //         return if (isErrorIconClicked) {
     //             when (event?.action) {
     //                 MotionEvent.ACTION_UP -> {

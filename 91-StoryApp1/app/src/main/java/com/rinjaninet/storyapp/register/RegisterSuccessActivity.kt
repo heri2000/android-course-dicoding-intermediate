@@ -4,10 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import androidx.core.view.isVisible
 import com.rinjaninet.storyapp.MainActivity
-import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.api.ApiConfig
 import com.rinjaninet.storyapp.api.LoginData
 import com.rinjaninet.storyapp.databinding.ActivityRegisterSuccessBinding
@@ -51,9 +48,10 @@ class RegisterSuccessActivity : AppCompatActivity() {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
-                    if (responseBody != null && !responseBody.error) {
+                    if (responseBody?.error != null && !responseBody.error) {
 
-                        mLoginPreferences.setLogin(responseBody.loginResult)
+                        if (responseBody.loginResult != null)
+                            mLoginPreferences.setLogin(responseBody.loginResult)
 
                         val mainIntent = Intent(
                             this@RegisterSuccessActivity, MainActivity::class.java

@@ -65,9 +65,10 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        if (responseBody != null && !responseBody.error) {
+                        if (responseBody?.error != null && !responseBody.error) {
 
-                            mLoginPreferences.setLogin(responseBody.loginResult)
+                            if (responseBody.loginResult != null)
+                                mLoginPreferences.setLogin(responseBody.loginResult)
 
                             val mainIntent = Intent(
                                 this@LoginActivity, MainActivity::class.java
@@ -79,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
                         } else {
 
                             tvLoginError.text = responseBody?.message ?: resources.getString(
-                                R.string.error_login_0202
+                                R.string.error_login_0203
                             )
                             tvLoginError.visibility = View.VISIBLE
                             enableFormElements(true)
@@ -97,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    tvLoginError.text = t.message
+                    tvLoginError.text = resources.getString(R.string.error_login_0202)
                     tvLoginError.visibility = View.VISIBLE
                     enableFormElements(true)
                     return
