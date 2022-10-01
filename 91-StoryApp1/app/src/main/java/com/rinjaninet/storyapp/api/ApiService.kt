@@ -1,6 +1,6 @@
 package com.rinjaninet.storyapp.api
 
-import com.rinjaninet.storyapp.addstory.PostStoryResponse
+import com.rinjaninet.storyapp.addstory.AddStoryResponse
 import com.rinjaninet.storyapp.login.LoginResponse
 import com.rinjaninet.storyapp.register.RegisterResponse
 import com.rinjaninet.storyapp.story.GetStoryResponse
@@ -40,11 +40,12 @@ interface ApiService {
     ): Call<GetStoryResponse>
 
     @Multipart
-    @POST("v1/stories/guest")
-    fun postStory(
-        @Part("description") description: RequestBody,
-        @Part file: MultipartBody.Part
-    ): Call<PostStoryResponse>
+    @POST("v1/stories")
+    fun addStory(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody
+    ): Call<AddStoryResponse>
 
 }
 

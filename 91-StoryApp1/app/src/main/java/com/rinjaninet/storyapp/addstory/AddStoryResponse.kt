@@ -2,11 +2,11 @@ package com.rinjaninet.storyapp.addstory
 
 import com.google.gson.annotations.SerializedName
 
-data class PostStoryResponse(
+data class AddStoryResponse(
 	@field:SerializedName("error")
-	val error: Boolean,
+	val error: Boolean? = null,
 
 	@field:SerializedName("message")
-	val message: String
+	val message: String? = null
 )
 
