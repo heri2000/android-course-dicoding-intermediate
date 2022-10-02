@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Story</string>
+
+    <string name="register">Register</string>
+    <string name="name">Nama</string>
+    <string name="input_name">Masukkan nama Anda</string>
+    <string name="email">Email</string>
+    <string name="input_email">Masukkan alamat email Anda</string>
+    <string name="invalid_email_address">Alamat email tidak valid</string>
+    <string name="password">Password</string>
+    <string name="input_password">Masukkan password</string>
+    <string name="password_confirmation">Konfirmasi Password</string>
+    <string name="input_password_confirmation">Ketik ulang password</string>
+    <string name="password_6_characters_or_more">Password harus 6 karakter atau lebih</string>
+    <string name="login">Login</string>
+    <string name="new_user">Pengguna baru?</string>
+    <string name="register_here">Register di sini</string>
+    <string name="add_new_story">Tambah Story Baru</string>
+    <string name="upload">Upload</string>
+    <string name="logout">Logout (%s)</string>
+    <string name="story_photo">Foto story</string>
+    <string name="add_story">Tambah Story</string>
+    <string name="register_success">Register berhasil</string>
+    <string name="there_is_error">Masih terdapat kesalahan</string>
+    <string name="password_is_not_equal">Password tidak sama</string>
+    <string name="congratulations_register_success">Selamat!\nProses registrasi berhasil.</string>
+    <string name="continue_1">Lanjutkan</string>
+    <string name="error_register_0101">Email sudah pernah didaftarkan</string>
+    <string name="error_register_0102">Error #0102: Tidak dapat terhubung dengan server</string>
+    <string name="error_register_0103">Error #0103: Error yang tidak terdefinisi</string>
+    <string name="error_login_0201">Email atau password salah</string>
+    <string name="error_login_0202">Error #0202: Tidak dapat terhubung dengan server</string>
+    <string name="error_login_0203">Error #0203: Error yang tidak terdefinisi</string>
+    <string name="error_list_story_0301">Belum ada story</string>
+    <string name="error_list_story_0302">Error #0302: Tidak dapat terhubung dengan server</string>
+    <string name="error_add_story_0402">Error #0402: Tidak dapat terhubung dengan server</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description">Deskripsi:</string>
+    <string name="failed_to_take_picture">Gagal mengambil gambar.</string>
+    <string name="please_add_image">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="success_uploading_story">Sukses mengupload story.</string>
+    <string name="no_data">Tidak ada data</string>
+    <string name="take_photo">Ambil Foto</string>
+    <string name="switch_camera">Ganti Kamera</string>
+    <string name="language_setting">Pengaturan Bahasa</string>
+</resources>
