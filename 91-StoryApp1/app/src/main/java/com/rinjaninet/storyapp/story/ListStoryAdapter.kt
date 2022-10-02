@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.rinjaninet.storyapp.databinding.ItemRowStoryBinding
 
 class ListStoryAdapter(
-    private val listStory: ArrayList<ListStoryItem>
+    private var listStory: ArrayList<ListStoryItem>
 ): RecyclerView.Adapter<ListStoryAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -33,6 +33,10 @@ class ListStoryAdapter(
 
     override fun getItemCount(): Int {
         return listStory.size
+    }
+
+    fun addItem(item: ListStoryItem) {
+        listStory = (arrayListOf(item) + listStory) as ArrayList<ListStoryItem>
     }
 
     private fun ImageView.loadImage(url: String) {
