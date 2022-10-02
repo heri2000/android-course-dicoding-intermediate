@@ -40,4 +40,5 @@
     <string name="failed_to_take_picture">Gagal mengambil gambar.</string>
     <string name="please_add_image">Silakan masukkan berkas gambar terlebih dahulu.</string>
     <string name="success_uploading_story">Sukses mengupload story.</string>
+    <string name="no_data">Tidak ada data</string>
 </resources>

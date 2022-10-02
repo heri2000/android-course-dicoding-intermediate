@@ -18,6 +18,7 @@ import com.rinjaninet.storyapp.preferences.LoginPreferences
 import com.rinjaninet.storyapp.story.ListStoryAdapter
 import com.rinjaninet.storyapp.story.ListStoryItem
 import com.rinjaninet.storyapp.story.ListStoryViewModel
+import com.rinjaninet.storyapp.story.StoryActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -109,6 +110,12 @@ class MainActivity : AppCompatActivity() {
                     val listStoryAdapter = ListStoryAdapter(listStory)
                     rvListStory.adapter = listStoryAdapter
                     this@MainActivity.listStory = listStory
+
+                    // listStoryAdapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback {
+                    //     override fun onItemClicked(data: ListStoryItem) {
+                    //         showSelectedStory(data)
+                    //     }
+                    // })
                 }
             }
         }
@@ -136,7 +143,20 @@ class MainActivity : AppCompatActivity() {
             val listStoryAdapter = ListStoryAdapter(newList)
             binding.rvListStory.adapter = listStoryAdapter
             listStory = newList
+
+
+            // listStoryAdapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback {
+            //     override fun onItemClicked(data: ListStoryItem) {
+            //         showSelectedStory(data)
+            //     }
+            // })
         }
+    }
+
+    private fun showSelectedStory(data: ListStoryItem) {
+        val storyIntent = Intent(this, StoryActivity::class.java)
+        storyIntent.putExtra(StoryActivity.EXTRA_STORY, data)
+        startActivity(storyIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
