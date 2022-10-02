@@ -3,6 +3,7 @@ package com.rinjaninet.storyapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +19,6 @@ import com.rinjaninet.storyapp.preferences.LoginPreferences
 import com.rinjaninet.storyapp.story.ListStoryAdapter
 import com.rinjaninet.storyapp.story.ListStoryItem
 import com.rinjaninet.storyapp.story.ListStoryViewModel
-import com.rinjaninet.storyapp.story.StoryActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -127,7 +127,6 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == AddStoryActivity.RESULT_CODE) {
-            //listStoryViewModel.getStories(loginInfo.token ?: "", resources)
             val imagePath = result.data?.getStringExtra(AddStoryActivity.EXTRA_IMAGE_PATH)
             val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
             val newList = arrayListOf(ListStoryItem(
@@ -150,6 +149,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_language_setting -> {
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            }
             R.id.action_logout -> {
                 mLoginPreferences.clearLogin()
                 navigateToLogin()

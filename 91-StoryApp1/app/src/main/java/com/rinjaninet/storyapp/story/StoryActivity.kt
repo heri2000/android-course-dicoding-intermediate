@@ -3,7 +3,6 @@ package com.rinjaninet.storyapp.story
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.databinding.ActivityStoryBinding
 
@@ -20,13 +19,13 @@ class StoryActivity : AppCompatActivity() {
         if (story != null) {
             Glide.with(this)
                 .load(story.photoUrl)
-                .into(binding.ivStoryPhoto)
-            binding.tvStoryDescription.text = story.description
-            title = story.name
+                .into(binding.ivDetailPhoto)
+            binding.tvDetailDescription.text = story.description
+            binding.tvDetailName.text = story.name
         } else {
-            title = resources.getString(R.string.no_data)
-            binding.ivStoryPhoto.setImageResource(R.drawable.ic_baseline_image_24)
-            binding.tvStoryDescription.text = ""
+            binding.ivDetailPhoto.setImageResource(R.drawable.ic_baseline_image_24)
+            binding.tvDetailName.text = ""
+            binding.tvDetailDescription.text = ""
         }
     }
 

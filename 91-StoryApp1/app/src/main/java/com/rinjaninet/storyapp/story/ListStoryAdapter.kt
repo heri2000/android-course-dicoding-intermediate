@@ -32,24 +32,25 @@ class ListStoryAdapter(
     override fun getItemCount(): Int = listStory.size
 
     class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private var ivStoryItemPhoto: ImageView =
-            itemView.findViewById(R.id.iv_story_item_photo)
-        private var tvStoryItemName: TextView =
-            itemView.findViewById(R.id.tv_story_item_name)
-        private var tvStoryItemDescriptionPart: TextView =
-            itemView.findViewById(R.id.tv_story_item_description_part)
+        private var ivItemPhoto: ImageView =
+            itemView.findViewById(R.id.iv_item_photo)
+        private var tvItemName: TextView =
+            itemView.findViewById(R.id.tv_item_name)
+        private var tvItemDescription: TextView =
+            itemView.findViewById(R.id.tv_item_description)
 
         fun bind(story: ListStoryItem) {
-            story.photoUrl?.let { ivStoryItemPhoto.loadImage(it) }
-            tvStoryItemName.text = story.name
-            tvStoryItemDescriptionPart.text = story.description
+            story.photoUrl?.let { ivItemPhoto.loadImage(it) }
+            tvItemName.text = story.name
+            tvItemDescription.text = story.description
 
             itemView.setOnClickListener {
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
                         itemView.context as Activity,
-                        Pair(ivStoryItemPhoto, "photo"),
-                        Pair(tvStoryItemDescriptionPart, "description")
+                        Pair(ivItemPhoto, "photo"),
+                        Pair(tvItemName, "name"),
+                        Pair(tvItemDescription, "description")
                     )
                 val storyIntent = Intent(itemView.context, StoryActivity::class.java)
                 storyIntent.putExtra(StoryActivity.EXTRA_STORY, story)

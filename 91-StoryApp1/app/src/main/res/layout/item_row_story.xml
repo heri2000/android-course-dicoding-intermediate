@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_story_item_photo"
+            android:id="@+id/iv_item_photo"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
@@ -26,26 +26,26 @@
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            android:id="@+id/tv_story_item_name"
+            android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:textStyle="bold"
             android:textSize="18sp"
             tools:text="@tools:sample/full_names"
-            app:layout_constraintTop_toBottomOf="@id/iv_story_item_photo"
+            app:layout_constraintTop_toBottomOf="@id/iv_item_photo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/tv_story_item_description_part"
+            android:id="@+id/tv_item_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_margin="8dp"
             android:maxLines="2"
             tools:text="@tools:sample/lorem/random"
-            app:layout_constraintTop_toBottomOf="@+id/tv_story_item_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

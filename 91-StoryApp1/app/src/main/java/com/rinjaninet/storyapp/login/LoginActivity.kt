@@ -104,12 +104,6 @@ class LoginActivity : AppCompatActivity() {
                     return
                 }
             })
-
-            // val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
-            // mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            // mainIntent.putExtra(MainActivity.EXTRA_TOKEN, "this is token")
-            // startActivity(mainIntent)
-            // finish()
         }
     }
 
@@ -127,12 +121,4 @@ class LoginActivity : AppCompatActivity() {
         val pattern = Patterns.EMAIL_ADDRESS
         return pattern.matcher(emailAddress).matches()
     }
-
-    // override fun onBackPressed() {
-    //     super.onBackPressed()
-    //     val exitIntent = Intent(this, MainActivity::class.java)
-    //     exitIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-    //     exitIntent.putExtra(MainActivity.EXTRA_EXIT, true)
-    //     startActivity(exitIntent)
-    // }
 }
