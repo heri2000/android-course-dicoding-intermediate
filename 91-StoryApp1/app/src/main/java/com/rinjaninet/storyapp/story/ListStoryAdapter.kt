@@ -3,76 +3,65 @@ package com.rinjaninet.storyapp.story
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.rinjaninet.storyapp.databinding.ItemRowStoryBinding
+import com.rinjaninet.storyapp.R
 
 class ListStoryAdapter(
     private var listStory: ArrayList<ListStoryItem>
 ): RecyclerView.Adapter<ListStoryAdapter.ListViewHolder>() {
 
-    // private lateinit var onItemClickCallback: OnItemClickCallback
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding = ItemRowStoryBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        val view: View = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_row_story, parent, false
         )
-        return ListViewHolder(binding)
+        return ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val listStoryItem = listStory[position]
-        holder.binding.apply {
-            tvStoryItemName.text = listStoryItem.name
-            tvStoryItemDescriptionPart.text = listStoryItem.description
-            if (listStoryItem.photoUrl != null)
-                ivStoryItemPhoto.loadImage(listStoryItem.photoUrl)
-        }
+        holder.bind(listStory[position])
+    }
 
-        holder.apply {
+    override fun getItemCount(): Int = listStory.size
+
+    class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        private var ivStoryItemPhoto: ImageView =
+            itemView.findViewById(R.id.iv_story_item_photo)
+        private var tvStoryItemName: TextView =
+            itemView.findViewById(R.id.tv_story_item_name)
+        private var tvStoryItemDescriptionPart: TextView =
+            itemView.findViewById(R.id.tv_story_item_description_part)
+
+        fun bind(story: ListStoryItem) {
+            story.photoUrl?.let { ivStoryItemPhoto.loadImage(it) }
+            tvStoryItemName.text = story.name
+            tvStoryItemDescriptionPart.text = story.description
+
             itemView.setOnClickListener {
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
                         itemView.context as Activity,
-                        Pair(binding.ivStoryItemPhoto, "photo"),
-                        Pair(binding.tvStoryItemDescriptionPart, "description")
+                        Pair(ivStoryItemPhoto, "photo"),
+                        Pair(tvStoryItemDescriptionPart, "description")
                     )
                 val storyIntent = Intent(itemView.context, StoryActivity::class.java)
-                storyIntent.putExtra(StoryActivity.EXTRA_STORY, listStoryItem)
+                storyIntent.putExtra(StoryActivity.EXTRA_STORY, story)
                 itemView.context.startActivity(storyIntent, optionsCompat.toBundle())
             }
         }
 
-        // holder.itemView.setOnClickListener {
-        //     onItemClickCallback.onItemClicked(listStory[holder.adapterPosition])
-        // }
+        private fun ImageView.loadImage(url: String) {
+            Glide.with(this.context)
+                .load(url)
+                .apply(RequestOptions.centerCropTransform())
+                .into(this)
+        }
     }
-
-    override fun getItemCount(): Int {
-        return listStory.size
-    }
-
-    private fun ImageView.loadImage(url: String) {
-        Glide.with(this.context)
-            .load(url)
-            .apply(RequestOptions.centerCropTransform())
-            .into(this)
-    }
-
-    // interface OnItemClickCallback {
-    //     fun onItemClicked(data: ListStoryItem)
-    // }
-
-    // fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-    //     this.onItemClickCallback = onItemClickCallback
-    // }
-
-    class ListViewHolder(var binding: ItemRowStoryBinding): RecyclerView.ViewHolder(binding.root)
 }
