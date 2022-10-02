@@ -8,22 +8,19 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import com.rinjaninet.storyapp.R
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val FILENAME_FORMAT = "dd-MMM-yyyy"
+private const val FILENAME_FORMAT = "dd-MMM-yyyy HHmmss"
 
-val timeStamp: String = SimpleDateFormat(
-    FILENAME_FORMAT,
-    Locale.US
-).format(System.currentTimeMillis())
+var timeStamp: String? = ""
 
 fun createCustomTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-    return File.createTempFile(timeStamp, ".jpg", storageDir)
+    timeStamp = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis())
+    return File.createTempFile(timeStamp!!, ".jpg", storageDir)
 }
 
 fun createFile(application: Application): File {
@@ -35,7 +32,8 @@ fun createFile(application: Application): File {
         mediaDir != null && mediaDir.exists()
     ) mediaDir else application.filesDir
 
-    Log.d("AAAAA", outputDirectory.absolutePath)
+    timeStamp = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis())
+
     return File(outputDirectory, "$timeStamp.jpg")
 }
 
@@ -69,31 +67,35 @@ fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
 
 fun rotateBitmapForUpload(bitmap: Bitmap, imageSource: Int): Bitmap {
     val matrix = Matrix()
-    return if (imageSource == AddStoryActivity.IMAGE_SOURCE_BACK_CAMERA) {
-        matrix.postRotate(90f)
-        Bitmap.createBitmap(
-            bitmap,
-            0,
-            0,
-            bitmap.width,
-            bitmap.height,
-            matrix,
-            true
-        )
-    } else if (imageSource == AddStoryActivity.IMAGE_SOURCE_FRONT_CAMERA) {
-        // matrix.postRotate(-90f)
-        matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
-        Bitmap.createBitmap(
-            bitmap,
-            0,
-            0,
-            bitmap.width,
-            bitmap.height,
-            matrix,
-            true
-        )
-    } else {
-        bitmap
+    return when (imageSource) {
+        AddStoryActivity.IMAGE_SOURCE_BACK_CAMERA -> {
+            matrix.postRotate(90f)
+            Bitmap.createBitmap(
+                bitmap,
+                0,
+                0,
+                bitmap.width,
+                bitmap.height,
+                matrix,
+                true
+            )
+        }
+        AddStoryActivity.IMAGE_SOURCE_FRONT_CAMERA -> {
+            // matrix.postRotate(-90f)
+            matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
+            Bitmap.createBitmap(
+                bitmap,
+                0,
+                0,
+                bitmap.width,
+                bitmap.height,
+                matrix,
+                true
+            )
+        }
+        else -> {
+            bitmap
+        }
     }
 }
 

@@ -16,6 +16,7 @@ import com.rinjaninet.storyapp.login.LoginActivity
 import com.rinjaninet.storyapp.login.LoginResult
 import com.rinjaninet.storyapp.preferences.LoginPreferences
 import com.rinjaninet.storyapp.story.ListStoryAdapter
+import com.rinjaninet.storyapp.story.ListStoryItem
 import com.rinjaninet.storyapp.story.ListStoryViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loginInfo: LoginResult
     private lateinit var mLoginPreferences: LoginPreferences
     private val listStoryViewModel by viewModels<ListStoryViewModel>()
+    private var listStory: ArrayList<ListStoryItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(loginIntent)
         finish()
     }
-
 
     private fun displayProgress() {
         listStoryViewModel.isLoading.observe(this) { isLoading ->
@@ -107,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                 if (listStory != null) {
                     val listStoryAdapter = ListStoryAdapter(listStory)
                     rvListStory.adapter = listStoryAdapter
+                    this@MainActivity.listStory = listStory
                 }
             }
         }
@@ -115,17 +117,26 @@ class MainActivity : AppCompatActivity() {
             listStoryViewModel.getStories(loginInfo.token ?: "", resources)
     }
 
+    private fun addStory() {
+        val addStoryIntent = Intent(this, AddStoryActivity::class.java)
+        resultLauncher.launch(addStoryIntent)
+    }
+
     private val resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == AddStoryActivity.RESULT_CODE) {
-            listStoryViewModel.getStories(loginInfo.token ?: "", resources)
+            //listStoryViewModel.getStories(loginInfo.token ?: "", resources)
+            val imagePath = result.data?.getStringExtra(AddStoryActivity.EXTRA_IMAGE_PATH)
+            val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
+            val newList = arrayListOf(ListStoryItem(
+                name = loginInfo.name, photoUrl = imagePath, description = description
+            ))
+            listStory?.let { newList.addAll(it) }
+            val listStoryAdapter = ListStoryAdapter(newList)
+            binding.rvListStory.adapter = listStoryAdapter
+            listStory = newList
         }
-    }
-
-    private fun addStory() {
-        val addStoryIntent = Intent(this, AddStoryActivity::class.java)
-        resultLauncher.launch(addStoryIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

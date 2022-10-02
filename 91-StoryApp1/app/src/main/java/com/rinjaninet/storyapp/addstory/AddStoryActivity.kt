@@ -132,7 +132,6 @@ class AddStoryActivity : AppCompatActivity() {
                         val responseBody = response.body()
                         Log.d("AAAAA", responseBody.toString())
                         if (responseBody?.error != null && !responseBody.error) {
-                            Log.d("AAAAA", "11111")
                             Toast.makeText(
                                 this@AddStoryActivity,
                                 resources.getString(R.string.success_uploading_story),
@@ -143,16 +142,16 @@ class AddStoryActivity : AppCompatActivity() {
                             val desc = binding.edAddStoryDescription.text.toString().trim()
 
                             val resultIntent = Intent()
+                            resultIntent.putExtra(EXTRA_IMAGE_PATH, imagePath)
+                            resultIntent.putExtra(EXTRA_DESCRIPTION, desc)
                             setResult(RESULT_CODE, resultIntent)
                             finish()
                         } else {
-                            Log.d("AAAAA", "22222")
                             binding.tvAddStoryError.text = response.message()
                             binding.tvAddStoryError.visibility = View.VISIBLE
                             binding.pbAddStoryProgress.visibility = View.GONE
                         }
                     } else {
-                        Log.d("AAAAA", "33333")
                         binding.tvAddStoryError.text = response.message()
                         binding.tvAddStoryError.visibility = View.VISIBLE
                         binding.pbAddStoryProgress.visibility = View.GONE
@@ -182,5 +181,7 @@ class AddStoryActivity : AppCompatActivity() {
         const val IMAGE_SOURCE_FRONT_CAMERA = 3
 
         const val RESULT_CODE = 111
+        const val EXTRA_IMAGE_PATH = "extra_image_uri"
+        const val EXTRA_DESCRIPTION = "extra_description"
     }
 }
