@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -54,7 +53,7 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding.btnAddStoryCamera.setOnClickListener { startCameraX() }
         binding.btnAddStoryGallery.setOnClickListener { startGallery() }
-        binding.btnAddStoryUpload.setOnClickListener { uploadStory() }
+        binding.buttonAdd.setOnClickListener { uploadStory() }
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -109,7 +108,7 @@ class AddStoryActivity : AppCompatActivity() {
 
             val file = reduceImageFile(getFile as File, imageSource)
 
-            val description = binding.edAddStoryDescription.text
+            val description = binding.edAddDescription.text
                 .toString()
                 .trim()
                 .toRequestBody("text/plain".toMediaType())
@@ -130,7 +129,6 @@ class AddStoryActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        Log.d("AAAAA", responseBody.toString())
                         if (responseBody?.error != null && !responseBody.error) {
                             Toast.makeText(
                                 this@AddStoryActivity,
@@ -139,7 +137,7 @@ class AddStoryActivity : AppCompatActivity() {
                             ).show()
 
                             val imagePath = file.path
-                            val desc = binding.edAddStoryDescription.text.toString().trim()
+                            val desc = binding.edAddDescription.text.toString().trim()
 
                             val resultIntent = Intent()
                             resultIntent.putExtra(EXTRA_IMAGE_PATH, imagePath)

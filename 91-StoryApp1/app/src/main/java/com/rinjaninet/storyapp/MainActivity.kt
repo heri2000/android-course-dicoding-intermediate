@@ -18,7 +18,6 @@ import com.rinjaninet.storyapp.preferences.LoginPreferences
 import com.rinjaninet.storyapp.story.ListStoryAdapter
 import com.rinjaninet.storyapp.story.ListStoryItem
 import com.rinjaninet.storyapp.story.ListStoryViewModel
-import com.rinjaninet.storyapp.story.StoryActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -127,7 +126,6 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == AddStoryActivity.RESULT_CODE) {
-            //listStoryViewModel.getStories(loginInfo.token ?: "", resources)
             val imagePath = result.data?.getStringExtra(AddStoryActivity.EXTRA_IMAGE_PATH)
             val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
             val newList = arrayListOf(ListStoryItem(

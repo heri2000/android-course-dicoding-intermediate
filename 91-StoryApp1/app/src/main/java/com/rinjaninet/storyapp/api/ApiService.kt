@@ -11,19 +11,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    //@POST("v1/register")
-    //fun register(
-    //    @Field("name") name: String,
-    //    @Field("email") email: String,
-    //    @Field("password") password: String
-    //): Call<RegisterResponse>
-
-    //@POST("v1/login")
-    //fun login(
-    //    @Field("email") email: String,
-    //    @Field("password") password: String
-    //): Call<LoginResponse>
-
     @POST("v1/register")
     fun register(
         @Body registerData: RegisterData

@@ -41,4 +41,6 @@
     <string name="please_add_image">Silakan masukkan berkas gambar terlebih dahulu.</string>
     <string name="success_uploading_story">Sukses mengupload story.</string>
     <string name="no_data">Tidak ada data</string>
+    <string name="take_photo">Ambil Foto</string>
+    <string name="switch_camera">Ganti kamera</string>
 </resources>
