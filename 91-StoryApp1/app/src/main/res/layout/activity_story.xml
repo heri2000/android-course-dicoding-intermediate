@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".story.StoryActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_story_photo"
+            android:transitionName="photo"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/story_photo" />
+
+        <TextView
+            android:id="@+id/tv_story_description"
+            android:transitionName="description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            tools:text="@tools:sample/lorem/random"
+            app:layout_constraintTop_toBottomOf="@id/iv_story_photo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
