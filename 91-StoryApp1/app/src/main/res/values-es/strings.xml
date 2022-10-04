@@ -24,7 +24,7 @@
     <string name="register_success">Registro exitoso</string>
     <string name="there_is_error">Todavía hay errores</string>
     <string name="password_is_not_equal">Las contraseñas no son iguales</string>
-    <string name="congratulations_register_success">Felicidades!\El proceso de registro fue exitoso.</string>
+    <string name="congratulations_register_success">Felicidades!\nEl proceso de registro fue exitoso.</string>
     <string name="continue_1">Continuar</string>
     <string name="error_register_0101">El correo electrónico ya se usa antes</string>
     <string name="error_register_0102">Error #0102: No se puede conectar con el servidor</string>
@@ -38,6 +38,7 @@
     <string name="camera">Cámara</string>
     <string name="gallery">Galería</string>
     <string name="description">Descripción:</string>
+    <string name="please_grant_camera_permission">Conceda permiso para usar la Cámara</string>
     <string name="failed_to_take_picture">No se pudo tomar la foto.</string>
     <string name="please_add_image">Agregue un archivo de imagen.</string>
     <string name="success_uploading_story">Historia de carga exitosa.</string>
@@ -45,4 +46,8 @@
     <string name="take_photo">Tomar Foto</string>
     <string name="switch_camera">Cambiar de Cámara</string>
     <string name="language_setting">Configuración de Idioma</string>
+    <string name="appwidget_text">Aplicación de historia</string>
+    <string name="add_widget">Añadir widget</string>
+    <string name="app_widget_description">Widget de aplicación de historia</string>
+    <string name="empty_text">SIN DATOS</string>
 </resources>
