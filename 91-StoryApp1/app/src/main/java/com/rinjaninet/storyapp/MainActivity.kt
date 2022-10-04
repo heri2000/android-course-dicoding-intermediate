@@ -9,12 +9,14 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rinjaninet.storyapp.addstory.AddStoryActivity
 import com.rinjaninet.storyapp.databinding.ActivityMainBinding
 import com.rinjaninet.storyapp.login.LoginActivity
 import com.rinjaninet.storyapp.login.LoginResult
+import com.rinjaninet.storyapp.preferences.ImagePreferences
 import com.rinjaninet.storyapp.preferences.LoginPreferences
 import com.rinjaninet.storyapp.story.ListStoryAdapter
 import com.rinjaninet.storyapp.story.ListStoryItem
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var loginInfo: LoginResult
     private lateinit var mLoginPreferences: LoginPreferences
+    private lateinit var mImagePreferences: ImagePreferences
     private val listStoryViewModel by viewModels<ListStoryViewModel>()
     private var listStory: ArrayList<ListStoryItem>? = null
 
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         mLoginPreferences = LoginPreferences(this)
         loginInfo = mLoginPreferences.getLogin()
+
+        mImagePreferences = ImagePreferences(this)
 
         if (loginInfo.token == null || loginInfo.token!!.isEmpty()) navigateToLogin()
 
@@ -110,6 +115,8 @@ class MainActivity : AppCompatActivity() {
                     val listStoryAdapter = ListStoryAdapter(listStory)
                     rvListStory.adapter = listStoryAdapter
                     this@MainActivity.listStory = listStory
+
+                    saveImageUrls(listStory)
                 }
             }
         }
@@ -118,9 +125,20 @@ class MainActivity : AppCompatActivity() {
             listStoryViewModel.getStories(loginInfo.token ?: "", resources)
     }
 
+    private fun saveImageUrls(listStory: ArrayList<ListStoryItem>) {
+        val urls = arrayListOf<String>()
+        for (item in listStory) {
+            urls.add(item.photoUrl.toString())
+        }
+        mImagePreferences.saveImageUrls(urls)
+    }
+
     private fun addStory() {
         val addStoryIntent = Intent(this, AddStoryActivity::class.java)
-        resultLauncher.launch(addStoryIntent)
+        resultLauncher.launch(
+            addStoryIntent,
+            ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity)
+        )
     }
 
     private val resultLauncher = registerForActivityResult(
@@ -136,6 +154,8 @@ class MainActivity : AppCompatActivity() {
             val listStoryAdapter = ListStoryAdapter(newList)
             binding.rvListStory.adapter = listStoryAdapter
             listStory = newList
+
+            saveImageUrls(newList)
         }
     }
 

@@ -61,8 +61,23 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun startCameraX() {
-        val cameraXIntent = Intent(this, CameraActivity::class.java)
-        launcherIntentCameraX.launch(cameraXIntent)
+        if (!allPermissionsGranted()) {
+            ActivityCompat.requestPermissions(
+                this,
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
+        if (allPermissionsGranted()) {
+            val cameraXIntent = Intent(this, CameraActivity::class.java)
+            launcherIntentCameraX.launch(cameraXIntent)
+        } else {
+            Toast.makeText(
+                this,
+                resources.getString(R.string.please_grant_camera_permission),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private val launcherIntentCameraX = registerForActivityResult(
