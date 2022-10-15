@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 return
             }
 
-            val service = ApiConfig().getApiService().login(
+            val service = ApiConfig.getApiService().login(
                 LoginData(email, password)
             )
             service.enqueue(object : Callback<LoginResponse> {

@@ -41,7 +41,7 @@ class RegisterSuccessActivity : AppCompatActivity() {
         binding.pbRegisterSuccessProgress.visibility = View.VISIBLE
         binding.btnRegisterSuccessContinue.isEnabled = false
 
-        val service = ApiConfig().getApiService().login(
+        val service = ApiConfig.getApiService().login(
             LoginData(email ?: "", password ?: "")
         )
         service.enqueue(object : Callback<LoginResponse> {
