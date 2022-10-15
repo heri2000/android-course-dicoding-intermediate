@@ -54,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
                 return
             }
 
-            val service = ApiConfig().getApiService().register(RegisterData(name, email, password))
+            val service = ApiConfig.getApiService().register(RegisterData(name, email, password))
             service.enqueue(object : Callback<RegisterResponse> {
                 override fun onResponse(
                     call: Call<RegisterResponse>,

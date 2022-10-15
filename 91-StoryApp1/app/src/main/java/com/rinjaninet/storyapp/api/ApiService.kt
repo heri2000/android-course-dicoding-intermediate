@@ -11,23 +11,23 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @POST("v1/register")
+    @POST("register")
     fun register(
         @Body registerData: RegisterData
     ): Call<RegisterResponse>
 
-    @POST("v1/login")
+    @POST("login")
     fun login(
         @Body loginData: LoginData
     ): Call<LoginResponse>
 
-    @GET("v1/stories")
+    @GET("stories")
     fun getStories(
         @Header("Authorization") token: String
     ): Call<GetStoryResponse>
 
     @Multipart
-    @POST("v1/stories")
+    @POST("stories")
     fun addStory(
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,

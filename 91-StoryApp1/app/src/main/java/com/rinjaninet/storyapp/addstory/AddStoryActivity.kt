@@ -134,7 +134,7 @@ class AddStoryActivity : AppCompatActivity() {
                 requestImageFile
             )
 
-            val service = ApiConfig().getApiService().addStory(
+            val service = ApiConfig.getApiService().addStory(
                 "Bearer ${loginInfo.token}", imageMultipart, description
             )
             service.enqueue(object : Callback<AddStoryResponse> {
