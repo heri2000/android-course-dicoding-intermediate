@@ -1,6 +1,7 @@
 package com.dicoding.mystudentdata.database
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 
@@ -21,8 +22,11 @@ interface StudentDao {
     //@Query("SELECT * from student")
     //fun getAllStudent(): LiveData<List<Student>>
 
+    //@RawQuery(observedEntities = [Student::class])
+    //fun getAllStudent(query: SupportSQLiteQuery): LiveData<List<Student>>
+
     @RawQuery(observedEntities = [Student::class])
-    fun getAllStudent(query: SupportSQLiteQuery): LiveData<List<Student>>
+    fun getAllStudent(query: SupportSQLiteQuery): DataSource.Factory<Int, Student>
 
     @Transaction
     @Query("SELECT * FROM student")
