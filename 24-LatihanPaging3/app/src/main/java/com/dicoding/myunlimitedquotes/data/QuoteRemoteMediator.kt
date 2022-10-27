@@ -9,6 +9,7 @@ import com.dicoding.myunlimitedquotes.database.QuoteDatabase
 import com.dicoding.myunlimitedquotes.database.RemoteKeys
 import com.dicoding.myunlimitedquotes.network.ApiService
 import com.dicoding.myunlimitedquotes.network.QuoteResponseItem
+import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class QuoteRemoteMediator(
@@ -18,6 +19,12 @@ class QuoteRemoteMediator(
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
+        //val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+        //return if (System.currentTimeMillis() - database.lastUpdated() >= cacheTimeout) {
+        //    InitializeAction.SKIP_INITIAL_REFRESH
+        //} else {
+        //    InitializeAction.LAUNCH_INITIAL_REFRESH
+        //}
     }
 
     override suspend fun load(
