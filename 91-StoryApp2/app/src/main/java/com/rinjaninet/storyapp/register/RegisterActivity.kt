@@ -6,9 +6,10 @@ import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.rinjaninet.storyapp.R
-import com.rinjaninet.storyapp.api.ApiConfig
+import com.rinjaninet.storyapp.network.ApiConfig
 import com.rinjaninet.storyapp.api.RegisterData
 import com.rinjaninet.storyapp.databinding.ActivityRegisterBinding
+import com.rinjaninet.storyapp.network.RegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

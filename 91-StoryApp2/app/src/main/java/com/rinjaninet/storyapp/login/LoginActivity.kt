@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.rinjaninet.storyapp.MainActivity
 import com.rinjaninet.storyapp.R
-import com.rinjaninet.storyapp.api.ApiConfig
+import com.rinjaninet.storyapp.network.ApiConfig
 import com.rinjaninet.storyapp.api.LoginData
 import com.rinjaninet.storyapp.register.RegisterActivity
 import com.rinjaninet.storyapp.databinding.ActivityLoginBinding

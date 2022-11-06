@@ -1,6 +1,7 @@
-package com.rinjaninet.storyapp.api
+package com.rinjaninet.storyapp.network
 
 import com.rinjaninet.storyapp.BuildConfig
+import com.rinjaninet.storyapp.api.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

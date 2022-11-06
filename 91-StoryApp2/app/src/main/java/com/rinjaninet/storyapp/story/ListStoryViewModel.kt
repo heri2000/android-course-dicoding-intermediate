@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rinjaninet.storyapp.R
-import com.rinjaninet.storyapp.api.ApiConfig
+import com.rinjaninet.storyapp.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
