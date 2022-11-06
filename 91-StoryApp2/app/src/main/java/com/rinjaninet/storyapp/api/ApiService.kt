@@ -21,9 +21,12 @@ interface ApiService {
         @Body loginData: LoginData
     ): Call<LoginResponse>
 
-    @GET("stories?location=1")
+    @GET("stories")
     fun getStories(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("location") location: Int = 1
     ): Call<GetStoryResponse>
 
     @Multipart

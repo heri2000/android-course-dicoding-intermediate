@@ -31,7 +31,7 @@ class ListStoryViewModel : ViewModel() {
 
     fun getStories(token: String, resources: Resources) {
         _isLoading.value = true
-        val service = ApiConfig.getApiService().getStories("Bearer $token")
+        val service = ApiConfig.getApiService().getStories("Bearer $token", 1, 10)
         service.enqueue(object : Callback<GetStoryResponse> {
             override fun onResponse(
                 call: Call<GetStoryResponse>,
