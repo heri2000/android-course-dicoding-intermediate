@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         mLoginPreferences = LoginPreferences(this)
         loginInfo = mLoginPreferences.getLogin()
+        loginInfo.token?.let { Log.d("aaaaa", it) };
 
         mImagePreferences = ImagePreferences(this)
 

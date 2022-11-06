@@ -50,4 +50,8 @@
     <string name="add_widget">Añadir widget</string>
     <string name="app_widget_description">Widget de aplicación de historia</string>
     <string name="empty_text">SIN DATOS</string>
+    <string name="location_unknown">Ubicación desconocida</string>
+    <string name="latlon">%f, %f</string>
+    <string name="timeout">Se acabó el tiempo</string>
+    <string name="retry">Intentar Otra Vez</string>
 </resources>

@@ -22,9 +22,15 @@ class StoryActivity : AppCompatActivity() {
                 .into(binding.ivDetailPhoto)
             binding.tvDetailDescription.text = story.description
             binding.tvDetailName.text = story.name
+            binding.tvDetailLocation.text = if (story.lat == null || story.lon == null) {
+                resources.getString(R.string.location_unknown)
+            } else {
+                resources.getString(R.string.latlon, story.lat, story.lon)
+            }
         } else {
             binding.ivDetailPhoto.setImageResource(R.drawable.ic_baseline_image_24)
             binding.tvDetailName.text = ""
+            binding.tvDetailLocation.text = ""
             binding.tvDetailDescription.text = ""
         }
     }

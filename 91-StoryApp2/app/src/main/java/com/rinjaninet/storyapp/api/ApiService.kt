@@ -21,7 +21,7 @@ interface ApiService {
         @Body loginData: LoginData
     ): Call<LoginResponse>
 
-    @GET("stories")
+    @GET("stories?location=1")
     fun getStories(
         @Header("Authorization") token: String
     ): Call<GetStoryResponse>
