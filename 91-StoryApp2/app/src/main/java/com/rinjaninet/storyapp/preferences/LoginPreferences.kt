@@ -1,7 +1,7 @@
 package com.rinjaninet.storyapp.preferences
 
 import android.content.Context
-import com.rinjaninet.storyapp.login.LoginResult
+import com.rinjaninet.storyapp.network.LoginResult
 
 class LoginPreferences(context: Context) {
 

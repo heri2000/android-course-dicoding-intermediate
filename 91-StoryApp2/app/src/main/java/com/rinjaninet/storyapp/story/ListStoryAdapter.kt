@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rinjaninet.storyapp.R
+import com.rinjaninet.storyapp.network.ListStoryItem
 
 class ListStoryAdapter(
     private var listStory: ArrayList<ListStoryItem>

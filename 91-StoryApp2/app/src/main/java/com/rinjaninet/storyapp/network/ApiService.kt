@@ -1,9 +1,5 @@
-package com.rinjaninet.storyapp.api
+package com.rinjaninet.storyapp.network
 
-import com.rinjaninet.storyapp.network.AddStoryResponse
-import com.rinjaninet.storyapp.login.LoginResponse
-import com.rinjaninet.storyapp.network.RegisterResponse
-import com.rinjaninet.storyapp.story.GetStoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

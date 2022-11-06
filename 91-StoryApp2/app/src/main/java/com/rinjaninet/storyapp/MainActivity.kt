@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rinjaninet.storyapp.addstory.AddStoryActivity
 import com.rinjaninet.storyapp.databinding.ActivityMainBinding
 import com.rinjaninet.storyapp.login.LoginActivity
-import com.rinjaninet.storyapp.login.LoginResult
+import com.rinjaninet.storyapp.network.LoginResult
 import com.rinjaninet.storyapp.preferences.ImagePreferences
 import com.rinjaninet.storyapp.preferences.LoginPreferences
 import com.rinjaninet.storyapp.story.ListStoryAdapter
-import com.rinjaninet.storyapp.story.ListStoryItem
+import com.rinjaninet.storyapp.network.ListStoryItem
 import com.rinjaninet.storyapp.story.ListStoryViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         mLoginPreferences = LoginPreferences(this)
         loginInfo = mLoginPreferences.getLogin()
-        loginInfo.token?.let { Log.d("aaaaa", it) };
+        loginInfo.token?.let { Log.d("aaaaa", it) }
 
         mImagePreferences = ImagePreferences(this)
 

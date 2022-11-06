@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.network.ApiConfig
+import com.rinjaninet.storyapp.network.GetStoryResponse
+import com.rinjaninet.storyapp.network.ListStoryItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

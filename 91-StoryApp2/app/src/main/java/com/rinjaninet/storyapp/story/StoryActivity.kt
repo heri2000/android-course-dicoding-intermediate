@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.databinding.ActivityStoryBinding
+import com.rinjaninet.storyapp.network.ListStoryItem
 
 class StoryActivity : AppCompatActivity() {
 

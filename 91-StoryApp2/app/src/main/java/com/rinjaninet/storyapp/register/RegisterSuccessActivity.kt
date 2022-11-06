@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.View
 import com.rinjaninet.storyapp.MainActivity
 import com.rinjaninet.storyapp.network.ApiConfig
-import com.rinjaninet.storyapp.api.LoginData
+import com.rinjaninet.storyapp.network.LoginData
 import com.rinjaninet.storyapp.databinding.ActivityRegisterSuccessBinding
 import com.rinjaninet.storyapp.login.LoginActivity
-import com.rinjaninet.storyapp.login.LoginResponse
+import com.rinjaninet.storyapp.network.LoginResponse
 import com.rinjaninet.storyapp.preferences.LoginPreferences
 import retrofit2.Call
 import retrofit2.Callback

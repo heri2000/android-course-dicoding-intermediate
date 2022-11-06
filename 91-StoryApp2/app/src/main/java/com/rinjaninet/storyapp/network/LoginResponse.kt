@@ -1,4 +1,4 @@
-package com.rinjaninet.storyapp.login
+package com.rinjaninet.storyapp.network
 
 import com.google.gson.annotations.SerializedName
 

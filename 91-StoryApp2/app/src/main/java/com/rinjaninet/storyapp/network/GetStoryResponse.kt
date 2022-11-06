@@ -1,4 +1,4 @@
-package com.rinjaninet.storyapp.story
+package com.rinjaninet.storyapp.network
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

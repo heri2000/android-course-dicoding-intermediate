@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.rinjaninet.storyapp.MainActivity
 import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.network.ApiConfig
-import com.rinjaninet.storyapp.api.LoginData
+import com.rinjaninet.storyapp.network.LoginData
 import com.rinjaninet.storyapp.register.RegisterActivity
 import com.rinjaninet.storyapp.databinding.ActivityLoginBinding
+import com.rinjaninet.storyapp.network.LoginResponse
 import com.rinjaninet.storyapp.preferences.LoginPreferences
 import retrofit2.Call
 import retrofit2.Callback

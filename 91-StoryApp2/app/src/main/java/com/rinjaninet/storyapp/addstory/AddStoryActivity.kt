@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import com.rinjaninet.storyapp.R
 import com.rinjaninet.storyapp.network.ApiConfig
 import com.rinjaninet.storyapp.databinding.ActivityAddStoryBinding
-import com.rinjaninet.storyapp.login.LoginResult
+import com.rinjaninet.storyapp.network.LoginResult
 import com.rinjaninet.storyapp.network.AddStoryResponse
 import com.rinjaninet.storyapp.preferences.LoginPreferences
 import okhttp3.MediaType.Companion.toMediaType
