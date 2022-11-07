@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
-import com.dicoding.storyapp.adapter.QuoteListAdapter
+import com.dicoding.storyapp.adapter.StoryListAdapter
 import com.dicoding.storyapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,13 +26,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        val adapter = QuoteListAdapter()
+        val adapter = StoryListAdapter()
         binding.rvQuote.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             }
         )
-        mainViewModel.quote.observe(this, {
+        mainViewModel.story.observe(this, {
             adapter.submitData(lifecycle, it)
         })
     }

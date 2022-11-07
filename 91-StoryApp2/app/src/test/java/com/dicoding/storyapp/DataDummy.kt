@@ -1,17 +1,17 @@
 package com.dicoding.storyapp
 
-import com.dicoding.storyapp.network.QuoteResponseItem
+import com.dicoding.storyapp.network.ListStoryItem
 
 object DataDummy {
-    fun generateDummyQuoteResponse(): List<QuoteResponseItem> {
-        val items: MutableList<QuoteResponseItem> = arrayListOf()
+    fun generateDummyStoryResponse(): List<ListStoryItem> {
+        val items: MutableList<ListStoryItem> = arrayListOf()
         for (i in 0..100) {
-            val quote = QuoteResponseItem(
+            val story = ListStoryItem(
                 i.toString(),
-                "author + $i",
-                "quote $i",
+                "name + $i",
+                "description $i",
             )
-            items.add(quote)
+            items.add(story)
         }
         return items
     }

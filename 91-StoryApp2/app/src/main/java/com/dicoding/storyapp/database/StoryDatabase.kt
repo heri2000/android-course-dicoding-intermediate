@@ -4,28 +4,28 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dicoding.storyapp.network.QuoteResponseItem
+import com.dicoding.storyapp.network.ListStoryItem
 
 @Database(
-    entities = [QuoteResponseItem::class, RemoteKeys::class],
+    entities = [ListStoryItem::class, RemoteKeys::class],
     version = 2,
     exportSchema = false
 )
-abstract class QuoteDatabase : RoomDatabase() {
+abstract class StoryDatabase : RoomDatabase() {
 
-    abstract fun quoteDao(): QuoteDao
+    abstract fun storyDao(): StoryDao
     abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile
-        private var INSTANCE: QuoteDatabase? = null
+        private var INSTANCE: StoryDatabase? = null
 
         @JvmStatic
-        fun getDatabase(context: Context): QuoteDatabase {
+        fun getDatabase(context: Context): StoryDatabase {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
-                    QuoteDatabase::class.java, "quote_database"
+                    StoryDatabase::class.java, "story_database"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

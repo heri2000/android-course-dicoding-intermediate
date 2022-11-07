@@ -23,7 +23,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/tvItemQuote"
+                android:id="@+id/tvItemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -34,12 +34,20 @@
                 tools:text="Lorem ipsum dolor" />
 
             <TextView
-                android:id="@+id/tvItemAuthor"
+                android:id="@+id/tvItemDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="14sp"
                 tools:text="Amet" />
+
+            <TextView
+                android:id="@+id/tvItemLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                tools:text="Locatio" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

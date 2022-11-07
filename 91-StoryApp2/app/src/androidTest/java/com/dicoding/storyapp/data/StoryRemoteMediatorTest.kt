@@ -4,9 +4,10 @@ import androidx.paging.*
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.dicoding.storyapp.database.QuoteDatabase
+import com.dicoding.storyapp.database.StoryDatabase
 import com.dicoding.storyapp.network.ApiService
-import com.dicoding.storyapp.network.QuoteResponseItem
+import com.dicoding.storyapp.network.ListStoryItem
+import com.dicoding.storyapp.network.StoryResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -18,20 +19,20 @@ import org.junit.runner.RunWith
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExperimentalPagingApi
 @RunWith(AndroidJUnit4::class)
-class QuoteRemoteMediatorTest {
+class StoryRemoteMediatorTest {
     private var mockApi: ApiService = FakeApiService()
-    private var mockDb: QuoteDatabase = Room.inMemoryDatabaseBuilder(
+    private var mockDb: StoryDatabase = Room.inMemoryDatabaseBuilder(
         ApplicationProvider.getApplicationContext(),
-        QuoteDatabase::class.java
+        StoryDatabase::class.java
     ).allowMainThreadQueries().build()
 
     @Test
     fun refreshLoadReturnsSuccessResultWhenMoreDataIsPresent() = runTest {
-        val remoteMediator = QuoteRemoteMediator(
+        val remoteMediator = StoryRemoteMediator(
             mockDb,
             mockApi,
         )
-        val pagingState = PagingState<Int, QuoteResponseItem>(
+        val pagingState = PagingState<Int, ListStoryItem>(
             listOf(),
             null,
             PagingConfig(10),
@@ -49,16 +50,16 @@ class QuoteRemoteMediatorTest {
 }
 
 class FakeApiService : ApiService {
-    override suspend fun getQuote(page: Int, size: Int): List<QuoteResponseItem> {
-        val items: MutableList<QuoteResponseItem> = arrayListOf()
+    override suspend fun getStory(token: String, page: Int, size: Int): StoryResponse {
+        val items: MutableList<ListStoryItem> = arrayListOf()
         for (i in 0..100) {
-            val quote = QuoteResponseItem(
+            val story = ListStoryItem(
                 i.toString(),
-                "author + $i",
-                "quote $i",
+                "name + $i",
+                "description $i",
             )
-            items.add(quote)
+            items.add(story)
         }
-        return items.subList((page - 1) * size, (page - 1) * size + size)
+        return StoryResponse(items.subList((page - 1) * size, (page - 1) * size + size), false, "")
     }
 }

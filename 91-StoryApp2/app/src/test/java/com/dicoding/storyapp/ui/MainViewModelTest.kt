@@ -10,10 +10,11 @@ import androidx.paging.PagingState
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.dicoding.storyapp.DataDummy
 import com.dicoding.storyapp.MainDispatcherRule
-import com.dicoding.storyapp.adapter.QuoteListAdapter
-import com.dicoding.storyapp.data.QuoteRepository
+import com.dicoding.storyapp.adapter.StoryListAdapter
+import com.dicoding.storyapp.data.StoryPagingSource
+import com.dicoding.storyapp.data.StoryRepository
 import com.dicoding.storyapp.getOrAwaitValue
-import com.dicoding.storyapp.network.QuoteResponseItem
+import com.dicoding.storyapp.network.ListStoryItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -35,39 +36,39 @@ class MainViewModelTest {
     val mainDispatcherRules = MainDispatcherRule()
 
     @Mock
-    private lateinit var quoteRepository: QuoteRepository
+    private lateinit var storyRepository: StoryRepository
 
     @Test
-    fun `when Get Quote Should Not Null and Return Success`() = runTest {
-        val dummyQuote = DataDummy.generateDummyQuoteResponse()
-        val data: PagingData<QuoteResponseItem> = QuotePagingSource.snapshot(dummyQuote)
-        val expectedQuote = MutableLiveData<PagingData<QuoteResponseItem>>()
-        expectedQuote.value = data
-        Mockito.`when`(quoteRepository.getQuote()).thenReturn(expectedQuote)
+    fun `when Get Story Should Not Null and Return Success`() = runTest {
+        val dummyStory = DataDummy.generateDummyStoryResponse()
+        val data: PagingData<ListStoryItem> = StoryPagingSource.snapshot(dummyStory)
+        val expectedStory = MutableLiveData<PagingData<ListStoryItem>>()
+        expectedStory.value = data
+        Mockito.`when`(storyRepository.getStory()).thenReturn(expectedStory)
 
-        val mainViewModel = MainViewModel(quoteRepository)
-        val actualQuote: PagingData<QuoteResponseItem> = mainViewModel.quote.getOrAwaitValue()
+        val mainViewModel = MainViewModel(storyRepository)
+        val actualStory: PagingData<ListStoryItem> = mainViewModel.story.getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
-            diffCallback = QuoteListAdapter.DIFF_CALLBACK,
+            diffCallback = StoryListAdapter.DIFF_CALLBACK,
             updateCallback = noopListUpdateCallback,
             workerDispatcher = Dispatchers.Main,
         )
-        differ.submitData(actualQuote)
+        differ.submitData(actualStory)
     }
 }
 
-class QuotePagingSource : PagingSource<Int, LiveData<List<QuoteResponseItem>>>() {
-    override fun getRefreshKey(state: PagingState<Int, LiveData<List<QuoteResponseItem>>>): Int {
+class StoryPagingSource : PagingSource<Int, LiveData<List<ListStoryItem>>>() {
+    override fun getRefreshKey(state: PagingState<Int, LiveData<List<ListStoryItem>>>): Int {
         return 0
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LiveData<List<QuoteResponseItem>>> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LiveData<List<ListStoryItem>>> {
         return LoadResult.Page(emptyList(), 0, 1)
     }
 
     companion object {
-        fun snapshot(items: List<QuoteResponseItem>): PagingData<QuoteResponseItem> {
+        fun snapshot(items: List<ListStoryItem>): PagingData<ListStoryItem> {
             return PagingData.from(items)
         }
     }
