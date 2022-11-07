@@ -1,7 +1,10 @@
 package com.dicoding.storyapp.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -55,9 +58,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        menu.findItem(R.id.action_show_map)
-        menu.findItem(R.id.action_show_list).isVisible = false
         //menu?.findItem(R.id.action_logout)?.title = resources.getString(R.string.logout, loginInfo.name)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_show_map -> {
+                val mapIntent = Intent(this, MapsActivity::class.java)
+                startActivity(mapIntent)
+            }
+            // R.id.action_language_setting -> {
+            //     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            // }
+            // R.id.action_logout -> {
+            //     mLoginPreferences.clearLogin()
+            //     navigateToLogin()
+            // }
+        }
+        return true
     }
 }
