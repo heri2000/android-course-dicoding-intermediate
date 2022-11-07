@@ -6,5 +6,7 @@
     <string name="logout">Logout %s</string>
     <string name="show_map">Show Map</string>
     <string name="show_list">Show List</string>
+    <string name="unknown">Unknown</string>
     <string name="no_data">No data</string>
+    <string name="story_photo">Story photo</string>
 </resources>

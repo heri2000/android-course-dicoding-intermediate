@@ -2,9 +2,12 @@ package com.dicoding.storyapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.dicoding.storyapp.databinding.ItemStoryBinding
 import com.dicoding.storyapp.network.ListStoryItem
 
@@ -26,10 +29,18 @@ class StoryListAdapter :
     class MyViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ListStoryItem) {
+            data.photoUrl?.let { binding.ivItemPhoto.loadImage(it) }
             binding.tvItemName.text = data.name
             binding.tvItemDescription.text = data.description
-            binding.tvItemLocation.text = if (data.lat == null || data.lon == null) "Unknown"
+            binding.tvItemLocation.text = if (data.lat == null || data.lon == null) "-"
             else StringBuilder(data.lat.toString()).append(", ").append(data.lon.toString()).toString()
+        }
+
+        private fun ImageView.loadImage(url: String) {
+            Glide.with(this.context)
+                .load(url)
+                .apply(RequestOptions.centerCropTransform())
+                .into(this)
         }
     }
 

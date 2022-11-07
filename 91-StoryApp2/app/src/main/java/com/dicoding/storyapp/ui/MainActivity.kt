@@ -39,17 +39,17 @@ class MainActivity : AppCompatActivity() {
         )
         mainViewModel.story.observe(this) {
             adapter.submitData(lifecycle, it)
-            if (adapter.itemCount < 1) {
-                binding.ivListStoryErrorIllustration.setImageDrawable(
-                    ResourcesCompat.getDrawable(resources, R.drawable.empty_box, null)
-                )
-                binding.tvListStoryErrorMessage.text = resources.getString(R.string.no_data)
-                binding.rvStory.visibility = View.GONE
-                binding.groupListStoryErrorMessage.visibility = View.VISIBLE
-            } else {
-                binding.rvStory.visibility = View.VISIBLE
-                binding.groupListStoryErrorMessage.visibility = View.GONE
-            }
+//            if (adapter.itemCount < 1) {
+//                binding.ivListStoryErrorIllustration.setImageDrawable(
+//                    ResourcesCompat.getDrawable(resources, R.drawable.empty_box, null)
+//                )
+//                binding.tvListStoryErrorMessage.text = resources.getString(R.string.no_data)
+//                binding.rvStory.visibility = View.GONE
+//                binding.groupListStoryErrorMessage.visibility = View.VISIBLE
+//            } else {
+//                binding.rvStory.visibility = View.VISIBLE
+//                binding.groupListStoryErrorMessage.visibility = View.GONE
+//            }
         }
     }
 

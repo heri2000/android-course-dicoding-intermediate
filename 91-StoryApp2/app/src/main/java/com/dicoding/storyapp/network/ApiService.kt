@@ -5,7 +5,7 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface ApiService {
-   @GET("stories")
+   @GET("stories?location=1")
    suspend fun getStory(
        @Header("Authorization") token: String,
        @Query("page") page: Int,
