@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Story App</string>
     <string name="retry">Try again</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="language_setting">Language Setting</string>
+    <string name="logout">Logout %s</string>
+    <string name="show_map">Show Map</string>
+    <string name="show_list">Show List</string>
+    <string name="no_data">No data</string>
 </resources>

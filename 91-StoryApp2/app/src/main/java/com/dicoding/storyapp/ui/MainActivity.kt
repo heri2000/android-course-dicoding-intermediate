@@ -1,9 +1,14 @@
 package com.dicoding.storyapp.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.storyapp.R
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
 import com.dicoding.storyapp.adapter.StoryListAdapter
 import com.dicoding.storyapp.databinding.ActivityMainBinding
@@ -20,20 +25,39 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvQuote.layoutManager = LinearLayoutManager(this)
+        binding.rvStory.layoutManager = LinearLayoutManager(this)
 
         getData()
     }
 
     private fun getData() {
         val adapter = StoryListAdapter()
-        binding.rvQuote.adapter = adapter.withLoadStateFooter(
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             }
         )
-        mainViewModel.story.observe(this, {
+        mainViewModel.story.observe(this) {
             adapter.submitData(lifecycle, it)
-        })
+            if (adapter.itemCount < 1) {
+                binding.ivListStoryErrorIllustration.setImageDrawable(
+                    ResourcesCompat.getDrawable(resources, R.drawable.empty_box, null)
+                )
+                binding.tvListStoryErrorMessage.text = resources.getString(R.string.no_data)
+                binding.rvStory.visibility = View.GONE
+                binding.groupListStoryErrorMessage.visibility = View.VISIBLE
+            } else {
+                binding.rvStory.visibility = View.VISIBLE
+                binding.groupListStoryErrorMessage.visibility = View.GONE
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        menu.findItem(R.id.action_show_map)
+        menu.findItem(R.id.action_show_list).isVisible = false
+        //menu?.findItem(R.id.action_logout)?.title = resources.getString(R.string.logout, loginInfo.name)
+        return super.onCreateOptionsMenu(menu)
     }
 }
