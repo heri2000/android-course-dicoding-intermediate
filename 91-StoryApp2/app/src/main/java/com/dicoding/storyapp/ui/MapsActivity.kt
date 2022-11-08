@@ -3,6 +3,7 @@ package com.dicoding.storyapp.ui
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.storyapp.R
 import com.dicoding.storyapp.databinding.ActivityMapsBinding
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -18,13 +20,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private val boundsBuilder = LatLngBounds.Builder()
+
+    private val mainViewModel: MainViewModel by viewModels {
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         try {
             this.supportActionBar!!.hide()
-        } catch (e: NullPointerException) {
+        } catch (_: NullPointerException) {
         }
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
@@ -54,16 +61,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isMapToolbarEnabled = true
 
         setMapStyle()
-
-        val dicodingSpace = LatLng(-6.8957643, 107.6338462)
-        mMap.addMarker(
-            MarkerOptions()
-                .position(dicodingSpace)
-                .draggable(true)
-                .title("Dicoding Space")
-                .snippet("Batik Kumeli No.50")
-        )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
+        getDataAndAddMarkers()
     }
 
     private fun setMapStyle() {
@@ -75,6 +73,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         } catch (exception: Resources.NotFoundException) {
             Log.e(TAG, "Can't find style. Error: ", exception)
+        }
+    }
+
+    private fun getDataAndAddMarkers() {
+        mainViewModel.storyAsList.observe(this) { listStory ->
+            listStory.forEach { story ->
+                if (
+                    story.lat != null &&
+                    story.lon != null &&
+                    story.lat > -16 &&
+                    story.lat < 13 &&
+                    story.lon > 92 &&
+                    story.lon < 148
+                ) {
+                    // Bounds dibatasi hanya untuk wilayah Indonesia saja, untuk tujuan demo
+                    val latLng = LatLng(story.lat, story.lon)
+                    mMap.addMarker(MarkerOptions()
+                        .position(latLng)
+                        .title(story.name)
+                        .snippet(story.description))
+                    boundsBuilder.include(latLng)
+                }
+            }
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    boundsBuilder.build(),
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.heightPixels,
+                    200
+                )
+            )
         }
     }
 

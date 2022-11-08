@@ -15,6 +15,7 @@ import com.dicoding.storyapp.R
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
 import com.dicoding.storyapp.adapter.StoryListAdapter
 import com.dicoding.storyapp.databinding.ActivityMainBinding
+import com.dicoding.storyapp.network.ListStoryItem
 
 class MainActivity : AppCompatActivity() {
 

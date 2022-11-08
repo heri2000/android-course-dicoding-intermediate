@@ -24,15 +24,6 @@
     ]
   },
   {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "featureType": "administrative.locality",
     "elementType": "labels.text.fill",
     "stylers": [
@@ -42,11 +33,10 @@
     ]
   },
   {
-    "featureType": "poi",
-    "elementType": "labels.icon",
+    "featureType": "administrative.neighborhood",
     "stylers": [
       {
-        "saturation": -100
+        "visibility": "off"
       }
     ]
   },
@@ -114,6 +104,15 @@
   },
   {
     "featureType": "road",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
     "elementType": "labels.icon",
     "stylers": [
       {
@@ -127,6 +126,31 @@
     "stylers": [
       {
         "color": "#9ca5b3"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "stylers": [
+      {
+        "color": "#004a4a"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "stylers": [
+      {
+        "color": "#005555"
       }
     ]
   },
@@ -150,6 +174,15 @@
   },
   {
     "featureType": "road.highway",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
     "elementType": "labels.text.fill",
     "stylers": [
       {
@@ -158,8 +191,15 @@
     ]
   },
   {
+    "featureType": "road.highway.controlled_access",
+    "stylers": [
+      {
+        "color": "#005555"
+      }
+    ]
+  },
+  {
     "featureType": "road.local",
-    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"
@@ -198,6 +238,15 @@
     "stylers": [
       {
         "color": "#17263c"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
       }
     ]
   },

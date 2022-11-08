@@ -20,4 +20,6 @@ class StoryRepository(private val storyDatabase: StoryDatabase, private val apiS
             }
         ).liveData
     }
+
+    fun getStoryAsList(): LiveData<List<ListStoryItem>> = storyDatabase.storyDao().getAllStoryAsList()
 }
