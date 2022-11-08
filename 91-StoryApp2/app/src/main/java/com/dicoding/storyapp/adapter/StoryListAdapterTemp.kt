@@ -38,6 +38,8 @@ class StoryListAdapterTemp(
             itemView.findViewById(R.id.iv_item_photo)
         private var tvItemName: TextView =
             itemView.findViewById(R.id.tv_item_name)
+        private var tvItemLocation: TextView =
+            itemView.findViewById(R.id.tv_item_location)
         private var tvItemDescription: TextView =
             itemView.findViewById(R.id.tv_item_description)
 
@@ -45,6 +47,8 @@ class StoryListAdapterTemp(
             story.photoUrl?.let { ivItemPhoto.loadImage(it) }
             tvItemName.text = story.name
             tvItemDescription.text = story.description
+            tvItemLocation.text = if (story.lat == null || story.lon == null) "-"
+            else StringBuilder(story.lat.toString()).append(", ").append(story.lon.toString()).toString()
 
             itemView.setOnClickListener {
                 val optionsCompat: ActivityOptionsCompat =
@@ -52,6 +56,7 @@ class StoryListAdapterTemp(
                         itemView.context as Activity,
                         Pair(ivItemPhoto, "photo"),
                         Pair(tvItemName, "name"),
+                        Pair(tvItemLocation, "location"),
                         Pair(tvItemDescription, "description")
                     )
                 val storyIntent = Intent(itemView.context, StoryDetailActivity::class.java)

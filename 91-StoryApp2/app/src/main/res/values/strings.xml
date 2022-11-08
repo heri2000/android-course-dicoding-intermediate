@@ -38,6 +38,7 @@
     <string name="success_uploading_story">Success uploading story.</string>
     <string name="take_photo">Take Photo</string>
     <string name="switch_camera">Switch Camera</string>
+    <string name="latlng">%f, %f</string>
 
     <string name="there_is_error">There are still error(s)</string>
     <string name="error_register_0101">Email is already used before</string>

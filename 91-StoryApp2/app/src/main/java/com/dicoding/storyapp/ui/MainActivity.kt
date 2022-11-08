@@ -3,6 +3,7 @@ package com.dicoding.storyapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
@@ -93,11 +94,27 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == AddStoryActivity.RESULT_CODE) {
             val imagePath = result.data?.getStringExtra(AddStoryActivity.EXTRA_IMAGE_PATH)
             val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
+            val latitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LATITUDE, 0F)
+            val longitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LONGITUDE, 0F)
             val newList = arrayListOf(
-                ListStoryItem(
-                    id = "", name = loginInfo.name, photoUrl = imagePath, description = description
-                )
+                if (latitude != null && longitude != null)
+                    ListStoryItem(
+                        id = "",
+                        name = loginInfo.name,
+                        photoUrl = imagePath,
+                        description = description,
+                        lat = latitude.toDouble(),
+                        lon = longitude.toDouble()
+                    )
+                else
+                    ListStoryItem(
+                        id = "",
+                        name = loginInfo.name,
+                        photoUrl = imagePath,
+                        description = description
+                    )
             )
+            Log.d(TAG, newList.toString())
 
             mainViewModel.storyAsList.observe(this) { listStory ->
                 newList.addAll(listStory)
@@ -139,5 +156,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
