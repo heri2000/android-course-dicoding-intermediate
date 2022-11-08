@@ -9,10 +9,8 @@ import com.dicoding.storyapp.di.Injection
 import com.dicoding.storyapp.network.ListStoryItem
 
 class MainViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    var token: String? = null
-
     val story: LiveData<PagingData<ListStoryItem>> =
-        storyRepository.getStory(token).cachedIn(viewModelScope)
+        storyRepository.getStory().cachedIn(viewModelScope)
 
     val storyAsList: LiveData<List<ListStoryItem>> =
         storyRepository.getStoryAsList()

@@ -1,5 +1,7 @@
 package com.dicoding.storyapp.data
 
+import android.content.Context
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -9,16 +11,27 @@ import com.dicoding.storyapp.database.StoryDatabase
 import com.dicoding.storyapp.database.RemoteKeys
 import com.dicoding.storyapp.network.ApiService
 import com.dicoding.storyapp.network.ListStoryItem
+import com.dicoding.storyapp.preferences.LoginPreferences
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
     private val database: StoryDatabase,
     private val apiService: ApiService,
-    private val token: String?
+    private val context: Context
 ) : RemoteMediator<Int, ListStoryItem>() {
 
+    private lateinit var mLoginPreferences: LoginPreferences
+    private var token = ""
+
     override suspend fun initialize(): InitializeAction {
+        mLoginPreferences = LoginPreferences(context)
+        val loginInfo = mLoginPreferences.getLogin()
+        token = loginInfo.token.toString()
+
         return InitializeAction.LAUNCH_INITIAL_REFRESH
+
+        //Log.d("StoryRemoteMediator001", token.toString())
+
         //val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
         //return if (System.currentTimeMillis() - database.lastUpdated() >= cacheTimeout) {
         //    InitializeAction.SKIP_INITIAL_REFRESH
@@ -52,7 +65,9 @@ class StoryRemoteMediator(
 
         try {
             // val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWxEcUU5WHRVVEM1NzJ0NmIiLCJpYXQiOjE2Njc3MDc2OTZ9.o7YlYzGVbfAEPKIQyDjCU4orv09ZoYbBXX26nZBBQhc"
-            val responseData = apiService.getStory(token?:"", page, state.config.pageSize)
+            // Log.d("StoryRemoteMediator001", "Use token $token")
+            val responseData = apiService.getStory("Bearer $token", page, state.config.pageSize)
+            // Log.d("StoryRemoteMediator001", responseData.toString())
 
             val endOfPaginationReached = responseData.listStory?.isEmpty()
 

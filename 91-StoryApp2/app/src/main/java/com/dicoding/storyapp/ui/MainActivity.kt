@@ -3,16 +3,19 @@ package com.dicoding.storyapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.storyapp.R
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
 import com.dicoding.storyapp.adapter.StoryListAdapter
+import com.dicoding.storyapp.adapter.StoryListAdapterTemp
 import com.dicoding.storyapp.databinding.ActivityMainBinding
+import com.dicoding.storyapp.network.ListStoryItem
 import com.dicoding.storyapp.network.LoginResult
 import com.dicoding.storyapp.preferences.LoginPreferences
 
@@ -30,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnAddStory.setOnClickListener {
+            addStory()
+        }
+
         mLoginPreferences = LoginPreferences(this)
         loginInfo = mLoginPreferences.getLogin()
 
@@ -37,8 +44,6 @@ class MainActivity : AppCompatActivity() {
             navigateToLogin()
             return
         }
-        Log.d("MainActivity001", loginInfo.toString())
-        mainViewModel.token = loginInfo.token
 
         binding.rvStory.layoutManager = LinearLayoutManager(this)
         getData()
@@ -73,6 +78,45 @@ class MainActivity : AppCompatActivity() {
 //            }
         }
     }
+
+    private fun addStory() {
+        val addStoryIntent = Intent(this, AddStoryActivity::class.java)
+        resultLauncher.launch(
+            addStoryIntent,
+            ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity)
+        )
+    }
+
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == AddStoryActivity.RESULT_CODE) {
+            val imagePath = result.data?.getStringExtra(AddStoryActivity.EXTRA_IMAGE_PATH)
+            val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
+            val newList = arrayListOf(
+                ListStoryItem(
+                    id = "", name = loginInfo.name, photoUrl = imagePath, description = description
+                )
+            )
+
+            mainViewModel.storyAsList.observe(this) { listStory ->
+                newList.addAll(listStory)
+                val storyListAdapterTemp = StoryListAdapterTemp(newList)
+                binding.rvStory.adapter =  storyListAdapterTemp
+            }
+
+            // saveImageUrls(newList)
+        }
+    }
+
+    // private fun saveImageUrls(listStory: ArrayList<ListStoryItem>) {
+    //     val urls = arrayListOf<String>()
+    //     for (item in listStory) {
+    //         urls.add(item.photoUrl.toString())
+    //     }
+    //     mImagePreferences.saveImageUrls(urls)
+    // }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)

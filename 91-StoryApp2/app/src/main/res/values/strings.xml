@@ -27,6 +27,17 @@
     <string name="password_is_not_equal">Passwords are not equal</string>
     <string name="congratulations_register_success">Congratulations!\nRegistration process was successful.</string>
     <string name="continue_1">Continue</string>
+    <string name="add_story">Add Story</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description">Description:</string>
+    <string name="upload">Upload</string>
+    <string name="please_grant_camera_permission">Please grant permission to use Camera</string>
+    <string name="failed_to_take_picture">Failed to take picture.</string>
+    <string name="please_add_image">Please add and image file.</string>
+    <string name="success_uploading_story">Success uploading story.</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="switch_camera">Switch Camera</string>
 
     <string name="there_is_error">There are still error(s)</string>
     <string name="error_register_0101">Email is already used before</string>
