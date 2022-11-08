@@ -12,6 +12,7 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="name">Name</string>
     <string name="input_name">Input your name</string>
     <string name="input_email">Input your email address</string>
     <string name="invalid_email_address">Email address is not valid</string>
@@ -21,6 +22,11 @@
     <string name="password_6_characters_or_more">Password must be 6 characters or more</string>
     <string name="new_user">New user?</string>
     <string name="register_here">Register here</string>
+    <string name="register">Register</string>
+    <string name="register_success">Register successful</string>
+    <string name="password_is_not_equal">Passwords are not equal</string>
+    <string name="congratulations_register_success">Congratulations!\nRegistration process was successful.</string>
+    <string name="continue_1">Continue</string>
 
     <string name="there_is_error">There are still error(s)</string>
     <string name="error_register_0101">Email is already used before</string>

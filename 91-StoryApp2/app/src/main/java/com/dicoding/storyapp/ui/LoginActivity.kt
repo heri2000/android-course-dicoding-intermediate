@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity() {
         mLoginPreferences = LoginPreferences(this)
 
         binding.tvLoginRegisterHere.setOnClickListener {
-            //val registerIntent = Intent(this, RegisterActivity::class.java)
-            //startActivity(registerIntent)
+            val registerIntent = Intent(this, RegisterActivity::class.java)
+            startActivity(registerIntent)
         }
 
         binding.btnLogin.setOnClickListener {
