@@ -16,10 +16,14 @@ import com.dicoding.storyapp.adapter.LoadingStateAdapter
 import com.dicoding.storyapp.adapter.StoryListAdapter
 import com.dicoding.storyapp.databinding.ActivityMainBinding
 import com.dicoding.storyapp.network.ListStoryItem
+import com.dicoding.storyapp.network.LoginResult
+import com.dicoding.storyapp.preferences.LoginPreferences
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var loginInfo: LoginResult
+    private lateinit var mLoginPreferences: LoginPreferences
     private val mainViewModel: MainViewModel by viewModels {
         ViewModelFactory(this)
     }
@@ -29,9 +33,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvStory.layoutManager = LinearLayoutManager(this)
+        mLoginPreferences = LoginPreferences(this)
+        loginInfo = mLoginPreferences.getLogin()
 
+        if (loginInfo.token == null || loginInfo.token!!.isEmpty()) {
+            navigateToLogin()
+            return
+        }
+
+        binding.rvStory.layoutManager = LinearLayoutManager(this)
         getData()
+    }
+
+    private fun navigateToLogin() {
+        val loginIntent = Intent(this, LoginActivity::class.java)
+        loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(loginIntent)
+        finish()
     }
 
     private fun getData() {

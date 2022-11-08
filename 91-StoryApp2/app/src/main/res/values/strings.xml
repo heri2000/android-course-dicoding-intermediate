@@ -9,4 +9,28 @@
     <string name="unknown">Unknown</string>
     <string name="no_data">No data</string>
     <string name="story_photo">Story photo</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="input_name">Input your name</string>
+    <string name="input_email">Input your email address</string>
+    <string name="invalid_email_address">Email address is not valid</string>
+    <string name="input_password">Input your password</string>
+    <string name="password_confirmation">Confirm Password</string>
+    <string name="input_password_confirmation">Retype your password</string>
+    <string name="password_6_characters_or_more">Password must be 6 characters or more</string>
+    <string name="new_user">New user?</string>
+    <string name="register_here">Register here</string>
+
+    <string name="there_is_error">There are still error(s)</string>
+    <string name="error_register_0101">Email is already used before</string>
+    <string name="error_register_0102">Error #0102: Cannot connect to server</string>
+    <string name="error_register_0103">Error #0103: Unknown error</string>
+    <string name="error_login_0201">Wrong email or password</string>
+    <string name="error_login_0202">Error #0202: Cannot connect to server</string>
+    <string name="error_login_0203">Error #0203: Unknown error</string>
+    <string name="error_list_story_0301">There\'s no story yet</string>
+    <string name="error_list_story_0302">Error #0302: Cannot connect to server</string>
+    <string name="error_add_story_0402">Error #0402: Cannot connect to server</string>
+
 </resources>
