@@ -7,13 +7,13 @@ import com.dicoding.storyapp.network.ApiService
 import com.dicoding.storyapp.network.ListStoryItem
 
 class StoryRepository(private val storyDatabase: StoryDatabase, private val apiService: ApiService) {
-    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+    fun getStory(token: String?): LiveData<PagingData<ListStoryItem>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
             pagingSourceFactory = {
                 //StoryPagingSource(apiService)
                 storyDatabase.storyDao().getAllStory()

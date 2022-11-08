@@ -13,7 +13,8 @@ import com.dicoding.storyapp.network.ListStoryItem
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
     private val database: StoryDatabase,
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val token: String?
 ) : RemoteMediator<Int, ListStoryItem>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -50,8 +51,8 @@ class StoryRemoteMediator(
         }
 
         try {
-            val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWxEcUU5WHRVVEM1NzJ0NmIiLCJpYXQiOjE2Njc3MDc2OTZ9.o7YlYzGVbfAEPKIQyDjCU4orv09ZoYbBXX26nZBBQhc"
-            val responseData = apiService.getStory(token, page, state.config.pageSize)
+            // val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWxEcUU5WHRVVEM1NzJ0NmIiLCJpYXQiOjE2Njc3MDc2OTZ9.o7YlYzGVbfAEPKIQyDjCU4orv09ZoYbBXX26nZBBQhc"
+            val responseData = apiService.getStory(token?:"", page, state.config.pageSize)
 
             val endOfPaginationReached = responseData.listStory?.isEmpty()
 

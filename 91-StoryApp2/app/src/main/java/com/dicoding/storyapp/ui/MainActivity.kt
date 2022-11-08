@@ -3,19 +3,16 @@ package com.dicoding.storyapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.storyapp.R
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
 import com.dicoding.storyapp.adapter.StoryListAdapter
 import com.dicoding.storyapp.databinding.ActivityMainBinding
-import com.dicoding.storyapp.network.ListStoryItem
 import com.dicoding.storyapp.network.LoginResult
 import com.dicoding.storyapp.preferences.LoginPreferences
 
@@ -40,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             navigateToLogin()
             return
         }
+        Log.d("MainActivity001", loginInfo.toString())
+        mainViewModel.token = loginInfo.token
 
         binding.rvStory.layoutManager = LinearLayoutManager(this)
         getData()
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        //menu?.findItem(R.id.action_logout)?.title = resources.getString(R.string.logout, loginInfo.name)
+        menu.findItem(R.id.action_logout)?.title = resources.getString(R.string.logout, loginInfo.name)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -87,13 +86,13 @@ class MainActivity : AppCompatActivity() {
                 val mapIntent = Intent(this, MapsActivity::class.java)
                 startActivity(mapIntent)
             }
-            // R.id.action_language_setting -> {
-            //     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
-            // }
-            // R.id.action_logout -> {
-            //     mLoginPreferences.clearLogin()
-            //     navigateToLogin()
-            // }
+            R.id.action_language_setting -> {
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            }
+            R.id.action_logout -> {
+                mLoginPreferences.clearLogin()
+                navigateToLogin()
+            }
         }
         return true
     }

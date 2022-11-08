@@ -10,7 +10,8 @@ class StoryPagingSource(private val apiService: ApiService) : PagingSource<Int, 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListStoryItem> {
         return try {
-            val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWxEcUU5WHRVVEM1NzJ0NmIiLCJpYXQiOjE2Njc3MDc2OTZ9.o7YlYzGVbfAEPKIQyDjCU4orv09ZoYbBXX26nZBBQhc"
+            // val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWxEcUU5WHRVVEM1NzJ0NmIiLCJpYXQiOjE2Njc3MDc2OTZ9.o7YlYzGVbfAEPKIQyDjCU4orv09ZoYbBXX26nZBBQhc"
+            val token = ""
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getStory(token, position, params.loadSize)
             LoadResult.Page(
