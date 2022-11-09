@@ -16,7 +16,7 @@ interface ApiService {
         @Body loginData: LoginData
     ): Call<LoginResponse>
 
-    @GET("stories")
+    @GET("stories?location=1")
     suspend fun getStory(
         @Header("Authorization") token: String,
         @Query("page") page: Int,

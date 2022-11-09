@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.location.Location
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -25,8 +27,12 @@ import com.dicoding.storyapp.preferences.LoginPreferences
 import com.dicoding.storyapp.utils.reduceImageFile
 import com.dicoding.storyapp.utils.rotateBitmap
 import com.dicoding.storyapp.utils.uriToFile
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.PolylineOptions
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -36,6 +42,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.util.concurrent.TimeUnit
 
 class AddStoryActivity : AppCompatActivity() {
 
@@ -46,6 +53,8 @@ class AddStoryActivity : AppCompatActivity() {
     private var imageSource = IMAGE_SOURCE_NONE
     private var latlng: LatLng? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +71,8 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        createLocationRequest()
+        createLocationCallback()
         getMyLocation()
 
         binding.btnAddStoryCamera.setOnClickListener { startCameraX() }
@@ -69,24 +80,73 @@ class AddStoryActivity : AppCompatActivity() {
         binding.buttonAdd.setOnClickListener { uploadStory() }
     }
 
+    private fun createLocationRequest() {
+        locationRequest = LocationRequest.create().apply {
+            interval = TimeUnit.SECONDS.toMillis(1)
+            maxWaitTime = TimeUnit.SECONDS.toMillis(1)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        val client = LocationServices.getSettingsClient(this)
+        client.checkLocationSettings(builder.build())
+            .addOnSuccessListener {
+                getMyLocation()
+            }
+            .addOnFailureListener { exception ->
+                if (exception is ResolvableApiException) {
+                    try {
+                        resolutionLauncher.launch(
+                            IntentSenderRequest.Builder(exception.resolution).build()
+                        )
+                    } catch (sendEx: IntentSender.SendIntentException) {
+                        Toast.makeText(this@AddStoryActivity, sendEx.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+    }
+
+    private fun createLocationCallback() {
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations) {
+                    latlng = LatLng(location.latitude, location.longitude)
+                    Log.d(TAG, "onLocationResult: " + latlng!!.latitude + ", " + latlng!!.longitude)
+                    binding.tvAddStoryLocation.text = resources.getString(R.string.latlng, location.latitude.toFloat(), location.longitude.toFloat())
+                }
+                fusedLocationClient.removeLocationUpdates(locationCallback)
+            }
+        }
+    }
+
+    private val resolutionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartIntentSenderForResult()
+        ) { result ->
+            when (result.resultCode) {
+                RESULT_OK ->
+                    Log.i(TAG, "onActivityResult: All location settings are satisfied.")
+                RESULT_CANCELED ->
+                    Toast.makeText(
+                        this@AddStoryActivity,
+                        "Anda harus mengaktifkan GPS untuk menggunakan aplikasi ini!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+            }
+        }
+
     private fun getMyLocation() {
         if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         ) {
-            Log.d(TAG, "aaaaa")
-            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    latlng = LatLng(location.latitude, location.longitude)
-                    Log.d(TAG, latlng.toString())
-                    binding.tvAddStoryLocation.text = resources.getString(R.string.latlng, location.latitude.toFloat(), location.longitude.toFloat())
-                } else {
-                    binding.tvAddStoryLocation.text = resources.getString(R.string.unknown)
-                    Toast.makeText(
-                        this@AddStoryActivity,
-                        "Location is not found. Try Again",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            try {
+                fusedLocationClient.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback,
+                    Looper.getMainLooper()
+                )
+            } catch (exception: SecurityException) {
+                Log.e(TAG, "Error : " + exception.message)
             }
         }
     }
@@ -110,31 +170,15 @@ class AddStoryActivity : AppCompatActivity() {
             }
         }
 
-    //private val resolutionLauncher =
-    //    registerForActivityResult(
-    //        ActivityResultContracts.StartIntentSenderForResult()
-    //    ) { result ->
-    //        when (result.resultCode) {
-    //            RESULT_OK ->
-    //                Log.i(TAG, "onActivityResult: All location settings are satisfied.")
-    //            RESULT_CANCELED ->
-    //                Toast.makeText(
-    //                    this@AddStoryActivity,
-    //                    "Anda harus mengaktifkan GPS untuk menggunakan aplikasi ini!",
-    //                    Toast.LENGTH_SHORT
-    //                ).show()
-    //        }
-    //    }
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
 
     private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
             permission
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun startCameraX() {
