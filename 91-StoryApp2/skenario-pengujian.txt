@@ -1,0 +1,39 @@
+a. Ketika berhasil memuat data story.
+   1. Memastikan data tidak null.
+   2. Memastikan jumlah data sesuai dengan yang diharapkan.
+
+
+
+
+
+
+
+a. Ketika berhasil memuat data berita.
+   1. Memastikan mengembalikan Result.Success.
+   2. Memastikan data tidak null.
+   3. Memastikan jumlah data sesuai dengan yang diharapkan.
+
+b. Ketika gagal memuat data berita.
+   1. Memastikan mengembalikan Result.Error.
+
+
+
+
+a. Ketika mengubah data bookmark.
+   1. Apabila bookmarkStatus bernilai false, ia akan memanggil fungsi saveNews.
+   2. Apabila bookmarkStatus bernilai true, ia akan memanggil fungsi deleteNews.
+
+
+
+
+a. Ketika mengambil data dari internet
+   1. Memastikan data tidak null.
+   2. Memastikan jumlah data sesuai dengan yang diharapkan.
+
+b. Ketika menyimpan data ke database
+   1. Data tersebut muncul di getBookmarkedNews.
+   2. Fungsi isBookmarked bernilai True.
+
+c. Ketika menghapus data dari database
+   1. Data tersebut tidak muncul di getBookmarkedNews.
+   2. Fungsi isBookmarked bernilai False.
