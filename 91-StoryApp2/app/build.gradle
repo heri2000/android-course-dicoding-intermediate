@@ -40,6 +40,9 @@ android {
         jvmTarget = '1.8'
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
@@ -72,6 +75,8 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1" //TestDispatcher
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0" //InstantTaskExecutorRule
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1" //TestDispatcher
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2' //RecyclerViewActions
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'//IntentsTestRule
 
     testImplementation 'org.mockito:mockito-core:3.12.4'
     testImplementation 'org.mockito:mockito-inline:3.12.4'

@@ -8,3 +8,8 @@ b. Ketika berhasil memuat data kosong.
 c. Ketika berhasil memuat data story as list.
    1. Memastikan data tidak null.
    2. Memastikan jumlah data sesuai dengan yang diharapkan.
+
+d. Ketika berhasil menampilkan data story di Main Activity
+   1. RecyclerView tampil.
+   2. Data yang ditampilkan sesuai.
+
