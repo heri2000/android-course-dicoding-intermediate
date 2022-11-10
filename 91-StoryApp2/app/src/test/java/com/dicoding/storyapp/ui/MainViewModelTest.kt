@@ -58,7 +58,10 @@ class MainViewModelTest {
         Assert.assertNotNull(differ.snapshot())
         Assert.assertEquals(dummyStory, differ.snapshot())
         Assert.assertEquals(dummyStory.size, differ.snapshot().size)
-        Assert.assertEquals(dummyStory[0].name, differ.snapshot()[0]?.name)
+        //Assert.assertEquals(dummyStory[0].name, differ.snapshot()[0]?.name)
+        for (i in dummyStory.indices) {
+            Assert.assertEquals(dummyStory[i].name, differ.snapshot()[i]?.name)
+        }
     }
 
     @Test
@@ -82,7 +85,7 @@ class MainViewModelTest {
 }
 
 class StoryPagingSource : PagingSource<Int, LiveData<List<ListStoryItem>>>() {
-    override fun getRefreshKey(state: PagingState<Int, LiveData<List<ListStoryItem>>>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, LiveData<List<ListStoryItem>>>): Int {
         return 0
     }
 
