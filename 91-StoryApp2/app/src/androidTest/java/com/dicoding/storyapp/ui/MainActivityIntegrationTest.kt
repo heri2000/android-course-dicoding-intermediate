@@ -22,7 +22,7 @@ import java.io.InputStreamReader
 
 @RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
 @MediumTest
-class MainActivityTest {
+class MainActivityIntegrationTest {
 
     private val mockWebServer = MockWebServer()
 

@@ -6,10 +6,12 @@ import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.storyapp.R
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
@@ -66,17 +68,19 @@ class MainActivity : AppCompatActivity() {
         )
         mainViewModel.story.observe(this) {
             adapter.submitData(lifecycle, it)
-//            if (adapter.itemCount < 1) {
-//                binding.ivListStoryErrorIllustration.setImageDrawable(
-//                    ResourcesCompat.getDrawable(resources, R.drawable.empty_box, null)
-//                )
-//                binding.tvListStoryErrorMessage.text = resources.getString(R.string.no_data)
-//                binding.rvStory.visibility = View.GONE
-//                binding.groupListStoryErrorMessage.visibility = View.VISIBLE
-//            } else {
-//                binding.rvStory.visibility = View.VISIBLE
-//                binding.groupListStoryErrorMessage.visibility = View.GONE
-//            }
+            if (adapter.itemCount < 1) {
+                // Show error message
+                binding.ivListStoryErrorIllustration.setImageDrawable(
+                    ResourcesCompat.getDrawable(resources, R.drawable.empty_box, null)
+                )
+                binding.tvListStoryErrorMessage.text = resources.getString(R.string.no_data)
+                binding.rvStory.visibility = View.GONE
+                binding.groupListStoryErrorMessage.visibility = View.VISIBLE
+            } else {
+                // Hide error message
+                binding.rvStory.visibility = View.VISIBLE
+                binding.groupListStoryErrorMessage.visibility = View.GONE
+            }
         }
     }
 

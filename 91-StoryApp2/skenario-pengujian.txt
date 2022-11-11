@@ -1,3 +1,5 @@
+Unit Test
+---------
 a. Ketika berhasil memuat data story.
    1. Memastikan data tidak null.
    2. Memastikan jumlah data sesuai dengan yang diharapkan.
@@ -9,7 +11,19 @@ c. Ketika berhasil memuat data story as list.
    1. Memastikan data tidak null.
    2. Memastikan jumlah data sesuai dengan yang diharapkan.
 
-d. Ketika berhasil menampilkan data story di Main Activity
+
+Integration Test
+----------------
+a. Ketika berhasil menampilkan data story di Main Activity
    1. RecyclerView tampil.
    2. Data yang ditampilkan sesuai.
+
+
+End-to-end Test
+---------------
+a. Menampilkan story
+   1. Memastikan RecyclerView untuk data story telah ditampilkan.
+
+b. Menampilkan detail story
+   1. Memastikan menuju ke halaman StoryDetailActivity.
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Story App</string>
     <string name="retry">Try again</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps">Map</string>
     <string name="language_setting">Language Setting</string>
     <string name="logout">Logout %s</string>
     <string name="show_map">Show Map</string>
@@ -34,7 +34,7 @@
     <string name="upload">Upload</string>
     <string name="please_grant_camera_permission">Please grant permission to use Camera</string>
     <string name="failed_to_take_picture">Failed to take picture.</string>
-    <string name="please_add_image">Please add and image file.</string>
+    <string name="please_add_image">Please add an image file.</string>
     <string name="success_uploading_story">Success uploading story.</string>
     <string name="take_photo">Take Photo</string>
     <string name="switch_camera">Switch Camera</string>
