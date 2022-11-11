@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels {
         ViewModelFactory(this)
     }
+    private var loading = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +81,20 @@ class MainActivity : AppCompatActivity() {
                 binding.tvListStoryErrorMessage.text = resources.getString(R.string.no_data)
                 binding.rvStory.visibility = View.GONE
                 binding.groupListStoryErrorMessage.visibility = View.VISIBLE
+
+                if (loading) {
+                    loading = false
+                    binding.pbListStoryProgressBar.visibility = View.VISIBLE
+                } else {
+                    binding.pbListStoryProgressBar.visibility = View.GONE
+                }
             } else {
                 // Hide error message
                 binding.rvStory.visibility = View.VISIBLE
                 binding.groupListStoryErrorMessage.visibility = View.GONE
+
+                binding.pbListStoryProgressBar.visibility = View.GONE
+                loading = false
 
                 saveImageUrls(adapter.snapshot().items as java.util.ArrayList<ListStoryItem>)
             }

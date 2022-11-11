@@ -52,4 +52,14 @@
         android:text="@string/add_story"
         app:icon="@drawable/ic_baseline_add_24" />
 
+    <ProgressBar
+        android:id="@+id/pb_list_story_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

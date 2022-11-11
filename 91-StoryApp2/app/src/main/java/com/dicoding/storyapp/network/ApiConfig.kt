@@ -1,5 +1,6 @@
 package com.dicoding.storyapp.network
 
+import com.dicoding.storyapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
    companion object{
-       var BASE_URL = "https://story-api.dicoding.dev/v1/"
+       var BASE_URL = BuildConfig.BASE_API_URL
 
        fun getApiService(): ApiService {
            val loggingInterceptor =

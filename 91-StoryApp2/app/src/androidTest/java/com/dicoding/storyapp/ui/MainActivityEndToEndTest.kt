@@ -42,7 +42,9 @@ class MainActivityEndToEndTest {
 
     @Test
     fun showStoryDetail() {
-        onView(withId(R.id.rv_story)).perform((RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())))
+        onView(withId(R.id.rv_story)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
+        )
         onView(withId(R.id.tv_detail_name)).check((matches(isDisplayed())))
     }
 }

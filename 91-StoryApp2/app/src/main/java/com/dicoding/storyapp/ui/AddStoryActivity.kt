@@ -5,8 +5,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.location.Location
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,10 +27,7 @@ import com.dicoding.storyapp.utils.rotateBitmap
 import com.dicoding.storyapp.utils.uriToFile
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.PolylineOptions
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -100,7 +95,9 @@ class AddStoryActivity : AppCompatActivity() {
                             IntentSenderRequest.Builder(exception.resolution).build()
                         )
                     } catch (sendEx: IntentSender.SendIntentException) {
-                        Toast.makeText(this@AddStoryActivity, sendEx.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@AddStoryActivity, sendEx.message, Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -112,7 +109,11 @@ class AddStoryActivity : AppCompatActivity() {
                 for (location in locationResult.locations) {
                     latlng = LatLng(location.latitude, location.longitude)
                     Log.d(TAG, "onLocationResult: " + latlng!!.latitude + ", " + latlng!!.longitude)
-                    binding.tvAddStoryLocation.text = resources.getString(R.string.latlng, location.latitude.toFloat(), location.longitude.toFloat())
+                    binding.tvAddStoryLocation.text = resources.getString(
+                        R.string.latlng,
+                        location.latitude.toFloat(),
+                        location.longitude.toFloat()
+                    )
                 }
                 fusedLocationClient.removeLocationUpdates(locationCallback)
             }
@@ -257,7 +258,10 @@ class AddStoryActivity : AppCompatActivity() {
 
             if (latlng != null) {
                 val service = ApiConfig.getApiService().addStory(
-                    "Bearer ${loginInfo.token}", imageMultipart, description, latlng!!.latitude.toFloat(), latlng!!.longitude.toFloat()
+                    "Bearer ${loginInfo.token}",
+                    imageMultipart, description,
+                    latlng!!.latitude.toFloat(),
+                    latlng!!.longitude.toFloat()
                 )
                 service.enqueue(object : Callback<AddStoryResponse> {
                     override fun onResponse(
@@ -311,7 +315,11 @@ class AddStoryActivity : AppCompatActivity() {
     companion object {
         const val TAG = "AddStoryActivity"
         const val CAMERA_X_RESULT = 200
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+        private val REQUIRED_PERMISSIONS = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
         private const val REQUEST_CODE_PERMISSIONS = 10
 
         const val IMAGE_SOURCE_NONE = 0
