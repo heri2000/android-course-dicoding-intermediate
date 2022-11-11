@@ -8,9 +8,15 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.storyapp.databinding.ItemLoadingBinding
 
-class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadingStateViewHolder {
-        val binding = ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+class LoadingStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) :
+            LoadingStateViewHolder {
+
+        val binding = ItemLoadingBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return LoadingStateViewHolder(binding, retry)
     }
 

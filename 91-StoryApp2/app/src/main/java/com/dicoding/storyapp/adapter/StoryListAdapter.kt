@@ -22,7 +22,9 @@ class StoryListAdapter :
     PagingDataAdapter<ListStoryItem, StoryListAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemStoryBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return MyViewHolder(binding)
     }
 
@@ -50,7 +52,10 @@ class StoryListAdapter :
             binding.tvItemName.text = story.name
             binding.tvItemDescription.text = story.description
             binding.tvItemLocation.text = if (story.lat == null || story.lon == null) "-"
-            else StringBuilder(story.lat.toString()).append(", ").append(story.lon.toString()).toString()
+            else StringBuilder(story.lat.toString())
+                .append(", ")
+                .append(story.lon.toString())
+                .toString()
 
             itemView.setOnClickListener {
                 val optionsCompat: ActivityOptionsCompat =

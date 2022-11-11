@@ -48,7 +48,10 @@ class StoryListAdapterTemp(
             tvItemName.text = story.name
             tvItemDescription.text = story.description
             tvItemLocation.text = if (story.lat == null || story.lon == null) "-"
-            else StringBuilder(story.lat.toString()).append(", ").append(story.lon.toString()).toString()
+            else StringBuilder(story.lat.toString())
+                .append(", ")
+                .append(story.lon.toString())
+                .toString()
 
             itemView.setOnClickListener {
                 val optionsCompat: ActivityOptionsCompat =

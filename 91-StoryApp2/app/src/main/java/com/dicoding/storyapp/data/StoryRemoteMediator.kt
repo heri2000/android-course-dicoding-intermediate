@@ -1,7 +1,6 @@
 package com.dicoding.storyapp.data
 
 import android.content.Context
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -29,17 +28,9 @@ class StoryRemoteMediator(
         token = loginInfo.token.toString()
 
         return InitializeAction.LAUNCH_INITIAL_REFRESH
-
-        //Log.d("StoryRemoteMediator001", token.toString())
-
-        //val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
-        //return if (System.currentTimeMillis() - database.lastUpdated() >= cacheTimeout) {
-        //    InitializeAction.SKIP_INITIAL_REFRESH
-        //} else {
-        //    InitializeAction.LAUNCH_INITIAL_REFRESH
-        //}
     }
 
+    @Suppress("UNCHECKED_CAST")
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, ListStoryItem>
@@ -64,10 +55,7 @@ class StoryRemoteMediator(
         }
 
         try {
-            // val token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWxEcUU5WHRVVEM1NzJ0NmIiLCJpYXQiOjE2Njc3MDc2OTZ9.o7YlYzGVbfAEPKIQyDjCU4orv09ZoYbBXX26nZBBQhc"
-            // Log.d("StoryRemoteMediator001", "Use token $token")
             val responseData = apiService.getStory("Bearer $token", page, state.config.pageSize)
-            // Log.d("StoryRemoteMediator001", responseData.toString())
 
             val endOfPaginationReached = responseData.listStory?.isEmpty()
 
@@ -92,17 +80,19 @@ class StoryRemoteMediator(
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, ListStoryItem>): RemoteKeys? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { data ->
-            data.id?.let { database.remoteKeysDao().getRemoteKeysId(it) }
+            data.id.let { database.remoteKeysDao().getRemoteKeysId(it) }
         }
     }
 
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, ListStoryItem>): RemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
-            data.id?.let { database.remoteKeysDao().getRemoteKeysId(it) }
+            data.id.let { database.remoteKeysDao().getRemoteKeysId(it) }
         }
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, ListStoryItem>): RemoteKeys? {
+    private suspend fun getRemoteKeyClosestToCurrentPosition(
+        state: PagingState<Int, ListStoryItem>
+    ): RemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
                 database.remoteKeysDao().getRemoteKeysId(id)

@@ -20,6 +20,7 @@ import com.dicoding.storyapp.adapter.StoryListAdapterTemp
 import com.dicoding.storyapp.databinding.ActivityMainBinding
 import com.dicoding.storyapp.network.ListStoryItem
 import com.dicoding.storyapp.network.LoginResult
+import com.dicoding.storyapp.preferences.ImagePreferences
 import com.dicoding.storyapp.preferences.LoginPreferences
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var loginInfo: LoginResult
     private lateinit var mLoginPreferences: LoginPreferences
+    private lateinit var mImagePreferences: ImagePreferences
     private val mainViewModel: MainViewModel by viewModels {
         ViewModelFactory(this)
     }
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnAddStory.setOnClickListener {
             addStory()
         }
+
+        mImagePreferences = ImagePreferences(this)
 
         mLoginPreferences = LoginPreferences(this)
         loginInfo = mLoginPreferences.getLogin()
@@ -80,6 +84,8 @@ class MainActivity : AppCompatActivity() {
                 // Hide error message
                 binding.rvStory.visibility = View.VISIBLE
                 binding.groupListStoryErrorMessage.visibility = View.GONE
+
+                saveImageUrls(adapter.snapshot().items as java.util.ArrayList<ListStoryItem>)
             }
         }
     }
@@ -126,17 +132,17 @@ class MainActivity : AppCompatActivity() {
                 binding.rvStory.adapter =  storyListAdapterTemp
             }
 
-            // saveImageUrls(newList)
+            saveImageUrls(newList)
         }
     }
 
-    // private fun saveImageUrls(listStory: ArrayList<ListStoryItem>) {
-    //     val urls = arrayListOf<String>()
-    //     for (item in listStory) {
-    //         urls.add(item.photoUrl.toString())
-    //     }
-    //     mImagePreferences.saveImageUrls(urls)
-    // }
+    private fun saveImageUrls(listStory: ArrayList<ListStoryItem>) {
+        val urls = arrayListOf<String>()
+        for (item in listStory) {
+            urls.add(item.photoUrl.toString())
+        }
+        mImagePreferences.saveImageUrls(urls)
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
