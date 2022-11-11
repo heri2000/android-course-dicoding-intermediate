@@ -41,6 +41,11 @@
     <string name="switch_camera">Balik kamera</string>
     <string name="latlng">%f, %f</string>
     <string name="location_not_found">"Lokasi tidak ditemukan"</string>
+    <string name="appwidget_text">Aplikasi Story</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">Aplikasi Story</string>
+
+    <string name="empty_text" />
 
     <string name="there_is_error">Masih ada kesalahan</string>
     <string name="error_register_0101">Surel sudah digunakan sebelumnya</string>

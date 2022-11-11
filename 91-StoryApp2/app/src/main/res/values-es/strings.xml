@@ -41,6 +41,11 @@
     <string name="switch_camera">Cambiar Cámara</string>
     <string name="latlng">%f, %f</string>
     <string name="location_not_found">"No se encuentra la ubicación"</string>
+    <string name="appwidget_text">Aplicación De Historia</string>
+    <string name="add_widget">Añadir widget</string>
+    <string name="app_widget_description">Aplicación De Historia</string>
+
+    <string name="empty_text" />
 
     <string name="there_is_error">Todavía hay errores</string>
     <string name="error_register_0101">El correo electrónico ya se usa antes</string>
