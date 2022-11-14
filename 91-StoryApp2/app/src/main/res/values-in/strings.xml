@@ -44,6 +44,7 @@
     <string name="appwidget_text">Aplikasi Story</string>
     <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">Aplikasi Story</string>
+    <string name="use_location">Gunakan Lokasi</string>
 
     <string name="empty_text" />
 

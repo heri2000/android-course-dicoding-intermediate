@@ -16,7 +16,7 @@ interface ApiService {
         @Body loginData: LoginData
     ): Call<LoginResponse>
 
-    @GET("stories?location=1")
+    @GET("stories")
     suspend fun getStory(
         @Header("Authorization") token: String,
         @Query("page") page: Int,
@@ -29,7 +29,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
-        @Part("lat") lat: Float,
-        @Part("lon") lon: Float
+        @Part("lat") lat: Float?,
+        @Part("lon") lon: Float?
     ): Call<AddStoryResponse>
 }

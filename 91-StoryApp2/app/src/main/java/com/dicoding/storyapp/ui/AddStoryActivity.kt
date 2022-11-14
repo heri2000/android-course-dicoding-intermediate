@@ -50,6 +50,7 @@ class AddStoryActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
+    private var useLocation = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +73,9 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding.btnAddStoryCamera.setOnClickListener { startCameraX() }
         binding.btnAddStoryGallery.setOnClickListener { startGallery() }
+        binding.cbAddStoryUseLocation.setOnCheckedChangeListener { _, isChecked ->
+            setUseLocation(isChecked)
+        }
         binding.buttonAdd.setOnClickListener { uploadStory() }
     }
 
@@ -238,6 +242,13 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUseLocation(useLocation: Boolean) {
+        this.useLocation = useLocation
+        binding.tvAddStoryLocation.visibility =
+            if (useLocation) View.VISIBLE
+            else View.GONE
+    }
+
     private fun uploadStory() {
         if (getFile != null) {
             binding.tvAddStoryError.visibility = View.GONE
@@ -256,56 +267,61 @@ class AddStoryActivity : AppCompatActivity() {
                 requestImageFile
             )
 
-            if (latlng != null) {
-                val service = ApiConfig.getApiService().addStory(
-                    "Bearer ${loginInfo.token}",
-                    imageMultipart, description,
-                    latlng!!.latitude.toFloat(),
-                    latlng!!.longitude.toFloat()
-                )
-                service.enqueue(object : Callback<AddStoryResponse> {
-                    override fun onResponse(
-                        call: Call<AddStoryResponse>,
-                        response: Response<AddStoryResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            val responseBody = response.body()
-                            if (responseBody?.error != null && !responseBody.error) {
-                                Toast.makeText(
-                                    this@AddStoryActivity,
-                                    resources.getString(R.string.success_uploading_story),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+            var latitude: Float? = null
+            var longitude: Float? = null
+            if (useLocation && latlng != null) {
+                latitude = latlng!!.latitude.toFloat()
+                longitude = latlng!!.longitude.toFloat()
+            }
+            val service = ApiConfig.getApiService().addStory(
+                "Bearer ${loginInfo.token}",
+                imageMultipart,
+                description,
+                latitude,
+                longitude
+            )
+            service.enqueue(object : Callback<AddStoryResponse> {
+                override fun onResponse(
+                    call: Call<AddStoryResponse>,
+                    response: Response<AddStoryResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody?.error != null && !responseBody.error) {
+                            Toast.makeText(
+                                this@AddStoryActivity,
+                                resources.getString(R.string.success_uploading_story),
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                                val imagePath = file.path
-                                val desc = binding.edAddDescription.text.toString().trim()
+                            val imagePath = file.path
+                            val desc = binding.edAddDescription.text.toString().trim()
 
-                                val resultIntent = Intent()
-                                resultIntent.putExtra(EXTRA_IMAGE_PATH, imagePath)
-                                resultIntent.putExtra(EXTRA_DESCRIPTION, desc)
-                                resultIntent.putExtra(EXTRA_LATITUDE, latlng?.latitude?.toFloat())
-                                resultIntent.putExtra(EXTRA_LONGITUDE, latlng?.longitude?.toFloat())
-                                setResult(RESULT_CODE, resultIntent)
-                                finish()
-                            } else {
-                                binding.tvAddStoryError.text = response.message()
-                                binding.tvAddStoryError.visibility = View.VISIBLE
-                                binding.pbAddStoryProgress.visibility = View.GONE
-                            }
+                            val resultIntent = Intent()
+                            resultIntent.putExtra(EXTRA_IMAGE_PATH, imagePath)
+                            resultIntent.putExtra(EXTRA_DESCRIPTION, desc)
+                            resultIntent.putExtra(EXTRA_LATITUDE, latitude)
+                            resultIntent.putExtra(EXTRA_LONGITUDE, longitude)
+                            setResult(RESULT_CODE, resultIntent)
+                            finish()
                         } else {
                             binding.tvAddStoryError.text = response.message()
                             binding.tvAddStoryError.visibility = View.VISIBLE
                             binding.pbAddStoryProgress.visibility = View.GONE
                         }
-                    }
-
-                    override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
-                        binding.tvAddStoryError.text = resources.getString(R.string.error_add_story_0402)
+                    } else {
+                        binding.tvAddStoryError.text = response.message()
                         binding.tvAddStoryError.visibility = View.VISIBLE
                         binding.pbAddStoryProgress.visibility = View.GONE
                     }
-                })
-            }
+                }
+
+                override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
+                    binding.tvAddStoryError.text = resources.getString(R.string.error_add_story_0402)
+                    binding.tvAddStoryError.visibility = View.VISIBLE
+                    binding.pbAddStoryProgress.visibility = View.GONE
+                }
+            })
         } else {
             binding.tvAddStoryError.text = resources.getString(R.string.please_add_image)
             binding.tvAddStoryError.visibility = View.VISIBLE

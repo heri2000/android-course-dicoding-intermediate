@@ -44,6 +44,7 @@
     <string name="appwidget_text">Aplicación De Historia</string>
     <string name="add_widget">Añadir widget</string>
     <string name="app_widget_description">Aplicación De Historia</string>
+    <string name="use_location">Usar Ubicación</string>
 
     <string name="empty_text" />
 

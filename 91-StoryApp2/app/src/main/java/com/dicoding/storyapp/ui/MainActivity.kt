@@ -115,10 +115,10 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == AddStoryActivity.RESULT_CODE) {
             val imagePath = result.data?.getStringExtra(AddStoryActivity.EXTRA_IMAGE_PATH)
             val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
-            val latitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LATITUDE, 0F)
-            val longitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LONGITUDE, 0F)
+            val latitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LATITUDE, -1001F)
+            val longitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LONGITUDE, -1001F)
             val newList = arrayListOf(
-                if (latitude != null && longitude != null)
+                if (latitude != null && longitude != null && latitude > -1000 && longitude > -1000)
                     ListStoryItem(
                         id = "",
                         name = loginInfo.name,

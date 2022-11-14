@@ -43,6 +43,7 @@
     <string name="appwidget_text">Story App</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Story App</string>
+    <string name="use_location">Use Location</string>
 
     <string name="empty_text" />
 
@@ -56,5 +57,4 @@
     <string name="error_list_story_0301">There\'s no story yet</string>
     <string name="error_list_story_0302">Error #0302: Cannot connect to server</string>
     <string name="error_add_story_0402">Error #0402: Cannot connect to server</string>
-
 </resources>
