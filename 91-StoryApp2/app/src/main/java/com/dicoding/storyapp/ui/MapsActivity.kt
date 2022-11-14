@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.storyapp.R
+import com.dicoding.storyapp.adapter.StoryListAdapter
 import com.dicoding.storyapp.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -67,8 +68,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun getDataAndAddMarkers() {
-        mainViewModel.storyAsList.observe(this) { listStory ->
-            listStory.forEach { story ->
+        val adapter = StoryListAdapter()
+        mainViewModel.story.observe(this) {
+            adapter.submitData(lifecycle, it)
+            adapter.snapshot().items.forEach { story ->
                 if (
                     story.lat != null &&
                     story.lon != null &&
@@ -86,14 +89,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     boundsBuilder.include(latLng)
                 }
             }
-            mMap.animateCamera(
-                CameraUpdateFactory.newLatLngBounds(
-                    boundsBuilder.build(),
-                    resources.displayMetrics.widthPixels,
-                    resources.displayMetrics.heightPixels,
-                    200
+            if (adapter.snapshot().items.isNotEmpty()) {
+                mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngBounds(
+                        boundsBuilder.build(),
+                        resources.displayMetrics.widthPixels,
+                        resources.displayMetrics.heightPixels,
+                        200
+                    )
                 )
-            )
+            }
         }
     }
 

@@ -12,8 +12,8 @@ class MainViewModel(storyRepository: StoryRepository) : ViewModel() {
     val story: LiveData<PagingData<ListStoryItem>> =
         storyRepository.getStory().cachedIn(viewModelScope)
 
-    val storyAsList: LiveData<List<ListStoryItem>> =
-        storyRepository.getStoryAsList()
+    //val storyAsList: LiveData<List<ListStoryItem>> =
+    //    storyRepository.etStoryAsList()
 }
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

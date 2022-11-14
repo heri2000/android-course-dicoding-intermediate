@@ -27,5 +27,5 @@ class StoryRepository(
         ).liveData
     }
 
-    fun getStoryAsList(): LiveData<List<ListStoryItem>> = storyDatabase.storyDao().getAllStoryAsList()
+    //fun getStoryAsList(): LiveData<List<ListStoryItem>> = storyDatabase.storyDao().getAllStoryAsList()
 }

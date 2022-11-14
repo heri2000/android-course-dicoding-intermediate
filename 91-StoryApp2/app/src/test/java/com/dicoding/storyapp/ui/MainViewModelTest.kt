@@ -87,7 +87,7 @@ class MainViewModelTest {
         val data: List<ListStoryItem> = dummyStory
         val expectedData = MutableLiveData<List<ListStoryItem>>()
         expectedData.value = data
-        Mockito.`when`(storyRepository.getStory()).thenReturn(MutableLiveData())
+        //Mockito.`when`(storyRepository.getStory()).thenReturn(MutableLiveData())
         Mockito.`when`(storyRepository.getStoryAsList()).thenReturn(expectedData)
 
         val mainViewModel = MainViewModel(storyRepository)

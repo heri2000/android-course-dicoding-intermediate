@@ -3,7 +3,6 @@ package com.dicoding.storyapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,11 +11,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.paging.TerminalSeparatorType
+import androidx.paging.insertHeaderItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.storyapp.R
 import com.dicoding.storyapp.adapter.LoadingStateAdapter
 import com.dicoding.storyapp.adapter.StoryListAdapter
-import com.dicoding.storyapp.adapter.StoryListAdapterTemp
 import com.dicoding.storyapp.databinding.ActivityMainBinding
 import com.dicoding.storyapp.network.ListStoryItem
 import com.dicoding.storyapp.network.LoginResult
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels {
         ViewModelFactory(this)
     }
+    private var newStories = arrayListOf<ListStoryItem>()
     private var loading = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +73,11 @@ class MainActivity : AppCompatActivity() {
             }
         )
         mainViewModel.story.observe(this) {
-            adapter.submitData(lifecycle, it)
+            var pagingData = it
+            newStories.forEach { story ->
+                pagingData = pagingData.insertHeaderItem(TerminalSeparatorType.FULLY_COMPLETE, story)
+            }
+            adapter.submitData(lifecycle, pagingData)
             if (adapter.itemCount < 1) {
                 // Show error message
                 binding.ivListStoryErrorIllustration.setImageDrawable(
@@ -117,6 +122,27 @@ class MainActivity : AppCompatActivity() {
             val description = result.data?.getStringExtra(AddStoryActivity.EXTRA_DESCRIPTION)
             val latitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LATITUDE, -1001F)
             val longitude = result.data?.getFloatExtra(AddStoryActivity.EXTRA_LONGITUDE, -1001F)
+
+            newStories.add(if (latitude != null && longitude != null && latitude > -1000 && longitude > -1000) {
+                ListStoryItem(
+                    id = "",
+                    name = loginInfo.name,
+                    photoUrl = imagePath,
+                    description = description,
+                    lat = latitude.toDouble(),
+                    lon = longitude.toDouble()
+                )
+            } else {
+                ListStoryItem(
+                    id = "",
+                    name = loginInfo.name,
+                    photoUrl = imagePath,
+                    description = description
+                )
+            })
+
+            getData()
+            /*
             val newList = arrayListOf(
                 if (latitude != null && longitude != null && latitude > -1000 && longitude > -1000)
                     ListStoryItem(
@@ -137,13 +163,22 @@ class MainActivity : AppCompatActivity() {
             )
             Log.d(TAG, newList.toString())
 
-            mainViewModel.storyAsList.observe(this) { listStory ->
-                newList.addAll(listStory)
+            val adapter = StoryListAdapter()
+            mainViewModel.story.observe(this) {
+                adapter.submitData(lifecycle, it)
+                newList.addAll(adapter.snapshot().items)
                 val storyListAdapterTemp = StoryListAdapterTemp(newList)
                 binding.rvStory.adapter =  storyListAdapterTemp
             }
 
+            //mainViewModel.storyAsList.observe(this) { listStory ->
+            //    newList.addAll(listStory)
+            //    val storyListAdapterTemp = StoryListAdapterTemp(newList)
+            //    binding.rvStory.adapter =  storyListAdapterTemp
+            //}
+
             saveImageUrls(newList)
+             */
         }
     }
 
@@ -177,9 +212,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
-    }
-
-    companion object {
-        const val TAG = "MainActivity"
     }
 }
