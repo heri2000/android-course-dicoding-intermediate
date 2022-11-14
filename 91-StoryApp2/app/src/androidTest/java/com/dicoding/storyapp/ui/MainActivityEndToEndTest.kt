@@ -37,14 +37,17 @@ class MainActivityEndToEndTest {
 
     @Test
     fun showStoryList() {
+        Thread.sleep(3000)
         onView(withId(R.id.rv_story)).check((matches(isDisplayed())))
     }
 
     @Test
     fun showStoryDetail() {
+        Thread.sleep(3000)
         onView(withId(R.id.rv_story)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
         )
+        Thread.sleep(1000)
         onView(withId(R.id.tv_detail_name)).check((matches(isDisplayed())))
     }
 }

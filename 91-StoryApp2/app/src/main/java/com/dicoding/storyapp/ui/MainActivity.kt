@@ -142,43 +142,6 @@ class MainActivity : AppCompatActivity() {
             })
 
             getData()
-            /*
-            val newList = arrayListOf(
-                if (latitude != null && longitude != null && latitude > -1000 && longitude > -1000)
-                    ListStoryItem(
-                        id = "",
-                        name = loginInfo.name,
-                        photoUrl = imagePath,
-                        description = description,
-                        lat = latitude.toDouble(),
-                        lon = longitude.toDouble()
-                    )
-                else
-                    ListStoryItem(
-                        id = "",
-                        name = loginInfo.name,
-                        photoUrl = imagePath,
-                        description = description
-                    )
-            )
-            Log.d(TAG, newList.toString())
-
-            val adapter = StoryListAdapter()
-            mainViewModel.story.observe(this) {
-                adapter.submitData(lifecycle, it)
-                newList.addAll(adapter.snapshot().items)
-                val storyListAdapterTemp = StoryListAdapterTemp(newList)
-                binding.rvStory.adapter =  storyListAdapterTemp
-            }
-
-            //mainViewModel.storyAsList.observe(this) { listStory ->
-            //    newList.addAll(listStory)
-            //    val storyListAdapterTemp = StoryListAdapterTemp(newList)
-            //    binding.rvStory.adapter =  storyListAdapterTemp
-            //}
-
-            saveImageUrls(newList)
-             */
         }
     }
 
